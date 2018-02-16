@@ -86,13 +86,14 @@ public class LogReader {
 
 			if (line.charAt(line.indexOf("player=") + 7) == '1' && Character.isDigit(line.charAt(line.length() - 1))) {
 				System.out.println(idToNames(line.substring(line.lastIndexOf('=') + 1)));// print out card names to console
-				try {
+				/*try {
 				friendlyCards_bw.write(idToNames(line.substring(line.lastIndexOf('=') + 1)));
 				friendlyCards_bw.newLine();
 				friendlyCards_bw.flush();
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
+				*/
 			} else if (line.charAt(line.indexOf("player=") + 7) == '2'
 					&& Character.isDigit(line.charAt(line.length() - 1))) {
 				// System.out.println(idToNames(line.substring(line.lastIndexOf('=') + 1)));
