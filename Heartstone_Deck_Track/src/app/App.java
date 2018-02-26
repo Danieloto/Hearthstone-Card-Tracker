@@ -90,6 +90,7 @@ public class App {
 			} else if (new Log_Reader().isOpponentCards(line)) {
 
 				opponentCards.add(new Log_Reader().idToNames(line.substring(line.lastIndexOf('=') + 1)));
+				cardName=opponentCards.get(opponentCards.size()-1);
 				//System.out.println(opponentCards.get(opponentCards.size() - 1));
 				
 				/*
