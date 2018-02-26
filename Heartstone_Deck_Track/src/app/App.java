@@ -15,11 +15,13 @@ public class App {
 	private String pcLogAddress="C:/Program Files (x86)/Hearthstone/Logs/Power.log";
 	private ArrayList<String> friendlyCards;
 	private ArrayList<String> opponentCards;
+	private ArrayList<String> outPut;
 
 	public App() {
 		stillOn = true;
 		friendlyCards = new ArrayList<String>();
 		opponentCards = new ArrayList<String>();
+		outPut= new ArrayList<String>();
 		//If determine system type so knows where log file is
 		if(System.getProperty("os.name").toLowerCase().contains("win"))
 			openFile(pcLogAddress);
@@ -52,9 +54,12 @@ public class App {
 
 				}
 				while (line == null) {
+					for(String s: outPut)
+						System.out.println(s);
+					outPut.clear();
 					line = br.readLine();
 					if (br.readLine() != null) {
-
+						Thread.sleep(1000);
 						break;
 					}
 				}
@@ -72,12 +77,12 @@ public class App {
 	private void prcessingLine(String line) {
 
 		if (new Log_Reader().lineContainsCards(line)) {
+			String cardName;
 
 			if (new Log_Reader().isFriendlyCards(line)) {
-
 				friendlyCards.add(new Log_Reader().idToNames(line.substring(line.lastIndexOf('=') + 1)));
-				 System.out.println(friendlyCards.get(friendlyCards.size() - 1));
-				
+				cardName=friendlyCards.get(friendlyCards.size() - 1);				 
+				outPut.add(cardName);
 				/*
 				 * use frendlyCards to develop your code
 				 */
@@ -91,7 +96,16 @@ public class App {
 				 * use oppoinentCards to develop your code 
 				 */
 			}
+			
 
+		}
+		else if(new Log_Reader().isNewGame(line)) {
+			if(!outPut.isEmpty()) {
+				outPut.clear();
+				friendlyCards.clear();
+				opponentCards.clear();
+			}
+			
 		}
 
 	}
