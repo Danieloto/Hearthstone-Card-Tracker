@@ -2,6 +2,7 @@ package app;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -10,23 +11,29 @@ import logReader.Log_Reader;
 public class App {
 
 	private boolean stillOn;
-
+	private String macLogAddress="/Applications/Hearthstone/Logs/Power.log";
+	private String pcLogAddress="C:/Program Files (x86)/Hearthstone/Logs/Power.log";
 	private ArrayList<String> friendlyCards;
 	private ArrayList<String> opponentCards;
 
-	public App(String logLocation) {
+	public App() {
 		stillOn = true;
 		friendlyCards = new ArrayList<String>();
 		opponentCards = new ArrayList<String>();
-
-		openFile(logLocation);
+		//If determine system type so knows where log file is
+		if(System.getProperty("os.name").toLowerCase().contains("win"))
+			openFile(pcLogAddress);
+		else
+			openFile(macLogAddress);
+		
+		
 	}
 
 	//windows at C:\Program Files (x86)\Hearthstone\Logs\Power.log
 	// see : https://github.com/jleclanche/fireplace/wiki/How-to-enable-logging
 	
 	public static void main(String args[]) {
-		App app = new App("/Applications/Hearthstone/Logs/Power.log");
+		App app = new App();
 
 	}
 
