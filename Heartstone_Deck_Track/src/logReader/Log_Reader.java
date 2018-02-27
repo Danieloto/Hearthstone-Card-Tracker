@@ -24,6 +24,10 @@ public class Log_Reader {
 	public boolean isOpponentCards(String line) {
 		return line.charAt(line.indexOf("player=") + 7) == '2' && Character.isDigit(line.charAt(line.length() - 1));
 	}
+	
+	public boolean isNewGame(String line) {
+		return line.contains("CREATE_");
+	}
 
 	public String idToNames(String id) {
 		String name = "";
