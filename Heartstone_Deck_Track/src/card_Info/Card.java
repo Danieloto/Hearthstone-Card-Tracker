@@ -1,8 +1,20 @@
 package card_Info;
 
+import java.awt.Image;
+
 public abstract class Card {
 	public int health, armor, mana, damage;
 	public String rarity, type;
+	Image icon = null;
+	
+	public Card(){
+		health = 0;
+		armor = 0;
+		mana = 0;
+		damage = 0;
+		rarity = "";
+		type = "";
+	}
 	
 	public int Health(){
 		if(Type() == "weapon" || Type() == "spell")
