@@ -1,6 +1,8 @@
 package deck;
 
-public class Deck{
+import card_Info.Card;
+
+public class Deck extends Card{
 
 	private Card[] deck; //object array of cards to make up deck.
 	int count;
@@ -27,18 +29,18 @@ public class Deck{
 		}
 	}
 	
-	public getCard(int num){
+	public Card getCard(int num){
 		return deck[num];
 	}
 	
-	public getCard(Card card){
-		int loc = null;
+	public Card getCard(Card card){
+		int loc = -1;
 		for(int i = 0; i < 30; i++){
 			if(deck[i] == card){
 				loc = i;
 			}
 		}
-		if(loc == null){
+		if(loc == -1){
 			throw new java.lang.Error("Card not in deck");
 		}
 		return deck[loc];
