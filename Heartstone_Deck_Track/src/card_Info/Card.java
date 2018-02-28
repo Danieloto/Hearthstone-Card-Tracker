@@ -7,13 +7,15 @@ public abstract class Card {
 	public String rarity, type;
 	Image icon = null;
 	
+	//Builds a basic card object with default values
 	public Card(){
 		health = 0;
-		armor = 0;
+//		armor = 0;
 		mana = 0;
 		damage = 0;
 		rarity = "";
 		type = "";
+		icon = null;
 	}
 	
 	public int Health(){
