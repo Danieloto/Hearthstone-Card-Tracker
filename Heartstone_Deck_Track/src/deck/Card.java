@@ -2,7 +2,7 @@ package deck;
 
 import java.awt.Image;
 
-public abstract class Card {
+public class Card {
 	public int health, armor, mana, damage;
 	public String rarity, type;
 	Image largeIcon, barIcon = null;
