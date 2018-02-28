@@ -1,11 +1,12 @@
-package card_Info;
+package deck;
 
 import java.awt.Image;
 
 public abstract class Card {
 	public int health, armor, mana, damage;
 	public String rarity, type;
-	Image icon = null;
+	Image largeIcon, barIcon = null;
+	
 	
 	//Builds a basic card object with default values
 	public Card(){
@@ -15,7 +16,8 @@ public abstract class Card {
 		damage = 0;
 		rarity = "";
 		type = "";
-		icon = null;
+		barIcon = null;
+		largeIcon = null;
 	}
 	
 	public int Health(){

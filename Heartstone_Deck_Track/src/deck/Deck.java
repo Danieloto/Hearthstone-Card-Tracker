@@ -1,11 +1,12 @@
 package deck;
 
-import card_Info.Card;
+import java.awt.Image;
 
 public class Deck extends Card{
 
 	private Card[] deck; //object array of cards to make up deck.
 	int count;
+	private Image[] images;
 	
 	public Deck(){ //Creates Deck
 		count = 0;
@@ -14,6 +15,7 @@ public class Deck extends Card{
 	public void addCard(Card card){
 		if(count < 30){ //Adds card if deck is not full
 			deck[count] = card;
+			images[count] = card.picture();
 		}
 	}
 	
