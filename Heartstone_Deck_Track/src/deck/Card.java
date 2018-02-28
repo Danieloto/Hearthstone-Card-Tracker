@@ -1,4 +1,4 @@
-package card_Info;
+package deck;
 
 import java.awt.Image;
 
