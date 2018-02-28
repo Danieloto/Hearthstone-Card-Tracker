@@ -46,4 +46,8 @@ public abstract class Card {
 		return damage;
 	}
 	
+	public Image picture(){
+		return icon;
+	}
+	
 }
