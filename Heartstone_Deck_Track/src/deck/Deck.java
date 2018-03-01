@@ -63,13 +63,89 @@ public class Deck{
 		return loc;
 	}
 	
-	public void sortDeck(Deck deck){
+	public void sortDeckMana(Deck deck){
 		Card temp;
 		int j;
 		for(int i = 1; i<deck.count; i++){
 			temp = deck.deck[i];
 			for(j = i-1; j > -1 && deck.deck[j].mana > deck.deck[i].mana; j--){
 				deck.deck[j+1] = deck.deck[j];
+			}
+			deck.deck[j+1] = temp;
+		}
+	}
+	
+	public void sortDeckHealth(Deck deck){
+		Card temp;
+		int j;
+		for(int i = 1; i<deck.count; i++){
+			temp = deck.deck[i];
+			for(j = i-1; j > -1 && deck.deck[j].health > deck.deck[i].health; j--){
+				deck.deck[j+1] = deck.deck[j];
+			}
+			deck.deck[j+1] = temp;
+		}
+	}
+	
+	public void sortDeckArmor(Deck deck){
+		Card temp;
+		int j;
+		for(int i = 1; i<deck.count; i++){
+			temp = deck.deck[i];
+			for(j = i-1; j > -1 && deck.deck[j].armor > deck.deck[i].armor; j--){
+				deck.deck[j+1] = deck.deck[j];
+			}
+			deck.deck[j+1] = temp;
+		}
+	}
+	
+	public void sortDeckDamage(Deck deck){
+		Card temp;
+		int j;
+		for(int i = 1; i<deck.count; i++){
+			temp = deck.deck[i];
+			for(j = i-1; j > -1 && deck.deck[j].damage > deck.deck[i].damage; j--){
+				deck.deck[j+1] = deck.deck[j];
+			}
+			deck.deck[j+1] = temp;
+		}
+	}
+	
+	public void sortDeckRarity(Deck deck){
+		Card temp;
+		int j,a,b;
+		a = b = 0;
+		for(int i = 1; i<deck.count; i++){
+			temp = deck.deck[i];
+			for(j = i-1; j > -1; j--){
+				if(deck.deck[i].rarity == "common"){
+					a = 1;
+				}
+				else if(deck.deck[i].rarity == "rare"){
+					a = 2;
+				}
+				else if(deck.deck[i].rarity == "epic"){
+					a = 3;
+				}
+				else if(deck.deck[i].rarity == "legendary"){
+					a = 4;
+				}
+				if(deck.deck[j].rarity == "common"){
+					b = 1;
+				}
+				else if(deck.deck[j].rarity == "rare"){
+					b = 2;
+				}
+				else if(deck.deck[j].rarity == "epic"){
+					b = 3;
+				}
+				else if(deck.deck[j].rarity == "legendary"){
+					b = 4;
+				}
+				
+				if(b > a){
+					deck.deck[j+1] = deck.deck[j];
+				}
 			}
 			deck.deck[j+1] = temp;
 		}
