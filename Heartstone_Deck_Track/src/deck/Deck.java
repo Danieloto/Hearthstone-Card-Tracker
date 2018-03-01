@@ -118,7 +118,10 @@ public class Deck{
 		for(int i = 1; i<deck.count; i++){
 			temp = deck.deck[i];
 			for(j = i-1; j > -1; j--){
-				if(deck.deck[i].rarity == "common"){
+				if(deck.deck[i].rarity == "free"){
+					a = 0;
+				}
+				else if(deck.deck[i].rarity == "common"){
 					a = 1;
 				}
 				else if(deck.deck[i].rarity == "rare"){
@@ -130,7 +133,10 @@ public class Deck{
 				else if(deck.deck[i].rarity == "legendary"){
 					a = 4;
 				}
-				if(deck.deck[j].rarity == "common"){
+				if(deck.deck[j].rarity == "free"){
+					b = 0;
+				}
+				else if(deck.deck[j].rarity == "common"){
 					b = 1;
 				}
 				else if(deck.deck[j].rarity == "rare"){
