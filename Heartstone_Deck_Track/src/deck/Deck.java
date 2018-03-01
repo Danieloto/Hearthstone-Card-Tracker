@@ -24,7 +24,7 @@ public class Deck{
 	public void removeCard(Card card){ //Removes specified card
 		for(int i = 0; i < 30; i++){
 			if(deck[i] == card){
-				for(int j = 0; j < 29; j++){ //Shifts cards back a spot 
+				for(int j = 0; j + i < 29; j++){ //Shifts cards back a spot 
 					deck[i+j] = deck[i+j+1]; //to remove selected card
 				}
 				deck[29] = null; //Sets last card to empty
