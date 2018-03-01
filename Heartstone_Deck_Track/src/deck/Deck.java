@@ -1,12 +1,16 @@
 package deck;
 
-import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class Deck extends Card{
 
 	private Card[] deck = new Card[30]; //object array of cards to make up deck.
 	int count;
+<<<<<<< HEAD
 	private Image[] images = new Image[30];
+=======
+	private ImageIcon[] images;
+>>>>>>> 56381c1284cef988b3cdc1577a263ba3697e5c1c
 	
 	public Deck(){ //Creates Deck
 		count = 0;
