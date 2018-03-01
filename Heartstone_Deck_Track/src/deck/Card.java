@@ -2,10 +2,12 @@ package deck;
 
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
+
 public class Card {
 	public int health, armor, mana, damage;
 	public String rarity, type;
-	Image largeIcon, barIcon = null;
+	ImageIcon largeIcon, barIcon = null;
 	
 	
 	//Builds a basic card object with default values
@@ -50,11 +52,11 @@ public class Card {
 		return damage;
 	}
 	
-	public Image barpicture(){
+	public ImageIcon barpicture(){
 		return barIcon;
 	}
 	
-	public Image largepicture(){
+	public ImageIcon largepicture(){
 		return largeIcon;
 	}
 	
