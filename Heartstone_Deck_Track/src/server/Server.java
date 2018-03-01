@@ -13,6 +13,7 @@ public class Server {
 	
 	/*
 	 * Creates card object from repository using name or ID
+	 * returns Null if it fails
 	 * Note: repository only has large images
 	 */
 	public static Card createCard(String name) {
@@ -77,14 +78,16 @@ public class Server {
 					card.desc = s;
 				}
 			}
+			
+			return card;
 		}
 		catch(UnirestException e) {
 			System.out.print(e);
+			return null;
 		}
 		catch(MalformedURLException e) {
 			System.out.print(e);
+			return null;
 		}
-	
-		return card;
 	}
 }
