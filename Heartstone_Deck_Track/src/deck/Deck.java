@@ -60,4 +60,16 @@ public class Deck extends Card{
 		}
 		return loc;
 	}
+	
+	public void sortDeck(Deck deck){
+		Card temp;
+		int j;
+		for(int i = 1; i<deck.count; i++){
+			temp = deck.deck[i];
+			for(j = i-1; j > -1 && deck.deck[j].mana > deck.deck[i].mana; j--){
+				deck.deck[j+1] = deck.deck[j];
+			}
+			deck.deck[j+1] = temp;
+		}
+	}
 }
