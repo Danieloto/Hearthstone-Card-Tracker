@@ -2,32 +2,44 @@ package app;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import deck.Card;
+import deck.Deck;
 import logReader.Log_Reader;
+import server.Server;
 
 public class App {
 
 	private boolean stillOn;
-	private String macLogAddress="/Applications/Hearthstone/Logs/Power.log";
-	private String pcLogAddress="C:/Program Files (x86)/Hearthstone/Logs/Power.log";
+	private static String macLogAddress="/Applications/Hearthstone/Logs/Power.log";
+	private static String pcLogAddress="C:/Program Files (x86)/Hearthstone/Logs/Power.log";
 	private ArrayList<String> friendlyCards;
 	private ArrayList<String> opponentCards;
 	private ArrayList<String> outPut;
+	private Server server;
+	public Deck friendlyDeck;
+	private Log_Reader logReader= new Log_Reader();
 
 	public App() {
 		stillOn = true;
 		friendlyCards = new ArrayList<String>();
 		opponentCards = new ArrayList<String>();
 		outPut= new ArrayList<String>();
-		//If determine system type so knows where log file is
-		if(System.getProperty("os.name").toLowerCase().contains("win"))
-			openFile(pcLogAddress);
-		else
-			openFile(macLogAddress);
-		
+		server=new Server();
+		friendlyDeck=new Deck();
+		String[] deckCards= logReader.createTestIDs(0);
+		Card tempCard;
+		for(String cardName: deckCards) {
+			tempCard=server.createCard(logReader.idToNames(cardName));
+			friendlyDeck.addCard(tempCard);
+		}
+		//Moved this to main. So only rain when setting this as main function.
+//		if(System.getProperty("os.name").toLowerCase().contains("win"))
+//			openFile(pcLogAddress);
+//		else
+//			openFile(macLogAddress);
 		
 	}
 
@@ -36,6 +48,12 @@ public class App {
 	
 	public static void main(String args[]) {
 		App app = new App();
+		//It determine system type so knows where log file is
+		if(System.getProperty("os.name").toLowerCase().contains("win"))
+			app.openFile(pcLogAddress);
+		else
+			app.openFile(macLogAddress);
+		
 	}
 
 	public void openFile(String logLocation) {
@@ -73,22 +91,29 @@ public class App {
 
 	}
 
+	/**
+	 * Tries to understand what is happening in the game by reading the line of the Power Log
+	 * 
+	 * @param line-The line from Power Log
+	 */
 	private void prcessingLine(String line) {
-
-		if (new Log_Reader().lineContainsCards(line)) {
+		/*
+		 * Checks to see if a new card was played in game
+		 */
+		if (logReader.lineContainsCards(line)) {
 			String cardName;
 
-			if (new Log_Reader().isFriendlyCards(line)) {
-				friendlyCards.add(new Log_Reader().idToNames(line.substring(line.lastIndexOf('=') + 1)));
+			if (logReader.isFriendlyCards(line)) {
+				friendlyCards.add(logReader.idToNames(line.substring(line.lastIndexOf('=') + 1)));
 				cardName=friendlyCards.get(friendlyCards.size() - 1);				 
 				outPut.add(cardName);
 				/*
 				 * use frendlyCards to develop your code
 				 */
 
-			} else if (new Log_Reader().isOpponentCards(line)) {
+			} else if (logReader.isOpponentCards(line)) {
 
-				opponentCards.add(new Log_Reader().idToNames(line.substring(line.lastIndexOf('=') + 1)));
+				opponentCards.add(logReader.idToNames(line.substring(line.lastIndexOf('=') + 1)));
 				cardName=opponentCards.get(opponentCards.size()-1);
 //				outPut.add(cardName);
 				//System.out.println(opponentCards.get(opponentCards.size() - 1));
@@ -100,13 +125,28 @@ public class App {
 			
 
 		}
-		else if(new Log_Reader().isNewGame(line)) {
+		/*
+		 * Checks to see if a new game has started
+		 */
+		else if(logReader.isNewGame(line)) {
 			if(!outPut.isEmpty()) {
 				outPut.clear();
 				friendlyCards.clear();
 				opponentCards.clear();
 			}
 			
+		}
+		/*
+		 * Checks to see if a card was returned
+		 */
+		else if(logReader.isSendingCardBackToDeck(line)) {
+			Log_Reader temp=new Log_Reader();
+			int beginIndex,endIndex;
+			beginIndex=line.indexOf("card")+7;
+			endIndex=line.indexOf("card")+14;
+			String cardName=temp.idToNames(line.substring(beginIndex,endIndex));
+			friendlyCards.remove(cardName);
+			outPut.add("*"+cardName+" returned to deck");
 		}
 
 	}
