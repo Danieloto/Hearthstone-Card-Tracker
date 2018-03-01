@@ -61,3 +61,4 @@ public class Deck extends Card{
 		return loc;
 	}
 }
+
