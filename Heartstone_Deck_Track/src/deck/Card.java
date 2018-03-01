@@ -50,8 +50,12 @@ public class Card {
 		return damage;
 	}
 	
-	public Image picture(){
-		return icon;
+	public Image barpicture(){
+		return barIcon;
+	}
+	
+	public Image largepicture(){
+		return largeIcon;
 	}
 	
 }
