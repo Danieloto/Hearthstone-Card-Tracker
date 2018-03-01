@@ -82,7 +82,7 @@ public class App {
 			if (new Log_Reader().isFriendlyCards(line)) {
 				friendlyCards.add(new Log_Reader().idToNames(line.substring(line.lastIndexOf('=') + 1)));
 				cardName=friendlyCards.get(friendlyCards.size() - 1);				 
-				outPut.add(cardName);
+//				outPut.add(cardName);
 				/*
 				 * use frendlyCards to develop your code
 				 */
@@ -91,6 +91,7 @@ public class App {
 
 				opponentCards.add(new Log_Reader().idToNames(line.substring(line.lastIndexOf('=') + 1)));
 				cardName=opponentCards.get(opponentCards.size()-1);
+				outPut.add(cardName);
 				//System.out.println(opponentCards.get(opponentCards.size() - 1));
 				
 				/*
