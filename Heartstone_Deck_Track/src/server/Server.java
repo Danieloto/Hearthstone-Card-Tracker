@@ -22,18 +22,24 @@ public class Server {
 	
 		try {
 			
+			//get info from repo
 			HttpResponse<JsonNode> response = Unirest.get("https://omgvamp-hearthstone-v1.p.mashape.com/cards/" + name).
 					header("X-Mashape-Key", "U62MhJxHw4mshNmyI9FDQEIjddITp1thCDWjsnf1b1GRoBalny").header("Accept", "application/json").asJson();
+			
+			//get body and parse out filler
 			String body = response.getBody().getArray().get(0).toString();
 			body = body.replaceAll("\"", "");
 			body = body.replaceAll("\\{", "");
 			body = body.replaceAll("\\}", "");
+			
+			//split by delimiters. ':' split object and value, and ',' split different objects
 			String[] bodySplit = body.split(":|,");
 			
 			for(int x = 0; x < bodySplit.length; x++) {
 				
 				String s = bodySplit[x];
 			
+				//values relevent to card object
 				if(s.equals("img")) {
 					x++;
 					s = bodySplit[x];
@@ -71,6 +77,9 @@ public class Server {
 				if(s.equals("text")) {
 					x++;
 					s = bodySplit[x];
+					
+					//splitting by delimiters also splits most descriptions, so if
+					//the next line is longer then longest object name, assume part of description
 					while((x < (bodySplit.length - 1)) && (bodySplit[x+1].length() > 12)) {
 						x++;
 						s = s + "," + bodySplit[x];
@@ -81,11 +90,13 @@ public class Server {
 			
 			return card;
 		}
-		catch(UnirestException e) {
+		catch(UnirestException e) { 
+			//httpResponse fails
 			System.out.print(e);
 			return null;
 		}
-		catch(MalformedURLException e) {
+		catch(MalformedURLException e) { 
+			//downloading image fails
 			System.out.print(e);
 			return null;
 		}
