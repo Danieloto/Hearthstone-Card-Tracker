@@ -23,6 +23,9 @@ public class Log_Reader {
 	public boolean isNewGame(String line) {
 		return line.contains("CREATE_");
 	}
+	public boolean isSendingCardBackToDeck(String line) {
+		return line.contains("PowerTaskList.DebugPrintPower() -     HIDE_ENTITY - Entity=[entityName")&&line.contains("value=DECK");
+	}
 
 	public String idToNames(String id) {
 		String name = "";
@@ -79,21 +82,23 @@ public class Log_Reader {
 	}
 	public String[] createTestIDs(int deckTestNumber){
 		String[] result= new String[30];
-		result[0]=result[1]="EX1_277";//Arcane missles
-		result[2]=result[3]="CS2_168";//Murloc Raider
-		result[4]=result[5]="CS2_025";//Arcane Explosion
-		result[6]=result[7]="CS2_172";//Bloodfen Raptor
-		result[8]=result[9]="EX1_015";//Novice Engineer
-		result[10]=result[11]="CS2_120";//River Crocolisk
-		result[12]=result[13]="CS2_023";//Arcane Intellect
-		result[14]=result[15]="CS2_122";//Raid Leader
-		result[16]=result[17]="CS2_124";//Wolfrider
-		result[18]=result[19]="CS2_029";//Fireball
-		result[20]=result[21]="CS2_119";//Oasis Snapjaw
-		result[22]=result[23]="CS2_022";//Polymorph
-		result[24]=result[25]="CS2_179";//Sen'jin Shieldmasta
-		result[26]=result[27]="EX1_593";//Nightblade
-		result[28]=result[29]="CS2_200";//Boulderfist Ogre		
+		if(deckTestNumber==0) {
+			result[0]=result[1]="EX1_277";//Arcane missles
+			result[2]=result[3]="CS2_168";//Murloc Raider
+			result[4]=result[5]="CS2_025";//Arcane Explosion
+			result[6]=result[7]="CS2_172";//Bloodfen Raptor
+			result[8]=result[9]="EX1_015";//Novice Engineer
+			result[10]=result[11]="CS2_120";//River Crocolisk
+			result[12]=result[13]="CS2_023";//Arcane Intellect
+			result[14]=result[15]="CS2_122";//Raid Leader
+			result[16]=result[17]="CS2_124";//Wolfrider
+			result[18]=result[19]="CS2_029";//Fireball
+			result[20]=result[21]="CS2_119";//Oasis Snapjaw
+			result[22]=result[23]="CS2_022";//Polymorph
+			result[24]=result[25]="CS2_179";//Sen'jin Shieldmasta
+			result[26]=result[27]="EX1_593";//Nightblade
+			result[28]=result[29]="CS2_200";//Boulderfist Ogre	
+		}
 		return result;
 	}
 

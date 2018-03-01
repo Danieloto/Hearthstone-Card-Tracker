@@ -10,12 +10,14 @@ public class Deck extends Card{
 	
 	public Deck(){ //Creates Deck
 		count = 0;
+		deck=new Card[30];
 	}
 	
 	public void addCard(Card card){
 		if(count < 30){ //Adds card if deck is not full
 			deck[count] = card;
 			images[count] = card.largepicture();
+			count++;//Changes card total
 		}
 	}
 	
