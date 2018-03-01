@@ -4,8 +4,8 @@ import javax.swing.ImageIcon;
 
 public class Card {
 	public int health, armor, mana, damage;
-	public String rarity, type;
-	ImageIcon largeIcon, barIcon = null;
+	public String rarity, type, desc;
+	public ImageIcon largeIcon, barIcon = null;
 	
 	
 	//Builds a basic card object with default values
@@ -18,6 +18,7 @@ public class Card {
 		type = "";
 		barIcon = null;
 		largeIcon = null;
+		desc = "";
 	}
 	
 	public int Health(){
@@ -58,4 +59,7 @@ public class Card {
 		return largeIcon;
 	}
 	
+	public String description() {
+		return desc;
+	}
 }
