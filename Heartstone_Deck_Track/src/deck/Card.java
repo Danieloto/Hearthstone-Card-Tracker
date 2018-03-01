@@ -11,7 +11,7 @@ public class Card {
 	//Builds a basic card object with default values
 	public Card(){
 		health = 0;
-//		armor = 0;
+		armor = 0;
 		mana = 0;
 		damage = 0;
 		rarity = "";
@@ -43,9 +43,9 @@ public class Card {
 		return type;
 	}
 	
-//	public int Armor(){
-//		return armor;
-//	}
+	public int Armor(){
+		return armor;
+	}
 	
 	public int Damage(){
 		return damage;
