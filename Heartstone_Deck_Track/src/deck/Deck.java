@@ -6,11 +6,7 @@ public class Deck extends Card{
 
 	private Card[] deck; //object array of cards to make up deck.
 	int count;
-<<<<<<< HEAD
-	private ImageIcon[] images;
-=======
 	private ImageIcon[] images = new ImageIcon[30];
->>>>>>> 52e9b7faae9996f27d33cd05dc2f056c0d062530
 	
 	public Deck(){ //Creates Deck
 		count = 0;
@@ -50,5 +46,18 @@ public class Deck extends Card{
 			throw new java.lang.Error("Card not in deck");
 		}
 		return deck[loc];
+	}
+	
+	public int getCardLocation(Card card){
+		int loc = -1;
+		for(int i = 0; i < 30; i++){
+			if(deck[i] == card){
+				loc = i;
+			}
+		}
+		if(loc == -1){
+			throw new java.lang.Error("Card not in deck");
+		}
+		return loc;
 	}
 }

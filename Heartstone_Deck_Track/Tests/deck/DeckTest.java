@@ -35,10 +35,6 @@ public class DeckTest{
 	
 	@Test
 	public void CardTest(){
-		Deck deck = new Deck();
-		Card card1 = new Card();
-		card1.mana = 4;
-		fail("Not yet implemented");
 	}
 
 }
