@@ -15,7 +15,7 @@ public class Deck extends Card{
 	public void addCard(Card card){
 		if(count < 30){ //Adds card if deck is not full
 			deck[count] = card;
-			images[count] = card.picture();
+			images[count] = card.largepicture();
 		}
 	}
 	
