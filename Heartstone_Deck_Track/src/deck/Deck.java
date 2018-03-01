@@ -2,7 +2,7 @@ package deck;
 
 import javax.swing.ImageIcon;
 
-public class Deck extends Card{
+public class Deck{
 
 	private Card[] deck; //object array of cards to make up deck.
 	int count;
