@@ -38,6 +38,9 @@ public class DeckTest{
 		Card card = new Card();
 		card.desc = "Big monster";
 		card.damage = 9;
+		card.health = -1;
+		card.largepicture();
+		
 		
 	}
 

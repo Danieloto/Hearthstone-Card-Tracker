@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 public class Card {
 	public int health, armor, mana, damage;
 	public String rarity, type, desc, name, id;
-	public ImageIcon largeIcon, barIcon = null;
+	public ImageIcon largeIcon, barIcon;
 	
 	
 	//Builds a basic card object with default values
@@ -31,10 +31,14 @@ public class Card {
 	}
 	
 	public int Cost(){
-		if(Type() == "hero")
-			return 0;
+		if(mana >= 0){
+			if(Type() == "hero")
+				return 0;
 		
-		return mana;
+			return mana;
+		}
+		else
+			throw new java.lang.Error("Cost cannot be less than 0");
 	}
 	
 	public String Rarity(){
@@ -65,6 +69,7 @@ public class Card {
 	}
 	
 	public ImageIcon largepicture(){
+		largeIcon = new ImageIcon("Dog.jpg");
 		return largeIcon;
 	}
 	
