@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 
 public class Card {
 	public int health, armor, mana, damage;
-	public String rarity, type, desc;
+	public String rarity, type, desc, name, id;
 	public ImageIcon largeIcon, barIcon = null;
 	
 	
@@ -19,6 +19,8 @@ public class Card {
 		barIcon = null;
 		largeIcon = null;
 		desc = "";
+		name = "";
+		id = "";
 	}
 	
 	public int Health(){
@@ -43,6 +45,13 @@ public class Card {
 		return type;
 	}
 	
+	public String Name(){
+		return name;
+	}
+	
+	public String ID(){
+		return id;
+	}
 	public int Armor(){
 		return armor;
 	}
