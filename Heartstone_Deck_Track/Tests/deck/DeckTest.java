@@ -40,8 +40,8 @@ public class DeckTest{
 		card.damage = 9;
 		card.health = -1;
 		card.largepicture();
-		
-		
+		card.id = "insert id";
+		assertEquals(card.id, "insert id");
 	}
 
 }
