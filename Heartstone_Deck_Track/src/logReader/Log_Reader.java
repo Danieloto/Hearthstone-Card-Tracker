@@ -23,6 +23,7 @@ public class Log_Reader {
 	public boolean isNewGame(String line) {
 		return line.contains("CREATE_");
 	}
+	//If value was graveyard or something, it was sent to grave!
 	public boolean isSendingCardBackToDeck(String line) {
 		return line.contains("PowerTaskList.DebugPrintPower() -     HIDE_ENTITY - Entity=[entityName")&&line.contains("value=DECK");
 	}

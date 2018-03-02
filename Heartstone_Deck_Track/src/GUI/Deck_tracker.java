@@ -1,33 +1,30 @@
 package GUI;
 
-import java.awt.EventQueue;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-
-import deck.Card;
-import deck.Deck;
-import logReader.Log_Reader;
-
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+
+import app.App;
+import deck.Deck;
 
 public class Deck_tracker extends JFrame implements MouseListener, ActionListener {
 
 	private JFrame frame;
 	JFrame frame1 = new JFrame();
+	private Deck deck;
+	ImageIcon[] cardImages;
 
 	/**
 	 * Launch the application.
@@ -50,7 +47,9 @@ public class Deck_tracker extends JFrame implements MouseListener, ActionListene
 	 */
 	public Deck_tracker() {
 		//ImageIcon[] Icon = new ImageIcon[30];
-		Card[] card = new Card[30];
+		App app=new App();
+		deck=app.friendlyDeck;
+		cardImages=deck.images;
 		//initialize(card);
 		initialize();
 	}
@@ -84,8 +83,8 @@ public class Deck_tracker extends JFrame implements MouseListener, ActionListene
 		for(int i = 0; i< label.length; i++) {
 			label[i]=new JLabel();
 			panel.add(label[i]);
-			//label[i].setIcon(dk.getCard(i).barpicture());
-			label[i].setIcon(icon1);
+			label[i].setIcon(cardImages[i]);
+//			label[i].setIcon(icon1);
 			label[i].addMouseListener(this);
 			
 			//label[i].addMouseListener(null);

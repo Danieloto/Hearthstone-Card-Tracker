@@ -6,7 +6,7 @@ public class Deck{
 
 	private Card[] deck; //object array of cards to make up deck.
 	int count;
-	private ImageIcon[] images = new ImageIcon[30];
+	public ImageIcon[] images = new ImageIcon[30];
 	
 	public Deck(){ //Creates Deck
 		count = 0;
