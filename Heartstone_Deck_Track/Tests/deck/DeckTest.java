@@ -35,6 +35,10 @@ public class DeckTest{
 	
 	@Test
 	public void CardTest(){
+		Card card = new Card();
+		card.desc = "Big monster";
+		card.damage = 9;
+		
 	}
 
 }
