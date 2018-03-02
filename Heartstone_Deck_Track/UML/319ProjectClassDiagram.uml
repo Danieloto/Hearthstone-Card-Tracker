@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_W1YgkB20EeizvO6V6-i1_Q" name="RootElement">
+  <packagedElement xmi:type="uml:Package" xmi:id="_XThjMB22EeizvO6V6-i1_Q" name="Deck">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Xn-bIB20EeizvO6V6-i1_Q" name="Deck">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_bCTiEB22EeizvO6V6-i1_Q" name="deck" type="_TcSWcB23EeizvO6V6-i1_Q">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ipEfIB22EeizvO6V6-i1_Q" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ipbEcB22EeizvO6V6-i1_Q" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_1SeqQB22EeizvO6V6-i1_Q" name="Count" type="_8M1NQB22EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_9rY18B22EeizvO6V6-i1_Q" name="Images" type="_GbCtsB23EeizvO6V6-i1_Q"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IiBBQB23EeizvO6V6-i1_Q" name="Deck"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_K6BacB23EeizvO6V6-i1_Q" name="addCard"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_LJxGoB23EeizvO6V6-i1_Q" name="removeCard"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Nulz0B23EeizvO6V6-i1_Q" name="getCard"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_XeAfcB23EeizvO6V6-i1_Q" name="getCardLocation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Xxwh4B23EeizvO6V6-i1_Q" name="sortDeckMana"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_X_XgEB23EeizvO6V6-i1_Q" name="sortDeckArmor"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YVA_8B23EeizvO6V6-i1_Q" name="sortDeckHealth"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YjlAYB23EeizvO6V6-i1_Q" name="sortDeckDamage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Yxb2MB23EeizvO6V6-i1_Q" name="sortDeckRarity"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Y_LeoB20EeizvO6V6-i1_Q" name="Card">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_chfyAB24EeizvO6V6-i1_Q" name="health" type="_8M1NQB22EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_cybJ8B24EeizvO6V6-i1_Q" name="armor" type="_8M1NQB22EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_dGA0UB24EeizvO6V6-i1_Q" name="mana" type="_8M1NQB22EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_dW4h4B24EeizvO6V6-i1_Q" name="damage" type="_8M1NQB22EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_dkPBYB24EeizvO6V6-i1_Q" name="rarity" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_dyNL8B24EeizvO6V6-i1_Q" name="type" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_eDcs8B24EeizvO6V6-i1_Q" name="desc" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_eiGX0B24EeizvO6V6-i1_Q" name=" name" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ewn8AB24EeizvO6V6-i1_Q" name="id" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_fPaw0B24EeizvO6V6-i1_Q" name="largeIcon" type="_C5x7gB25EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2zllwB24EeizvO6V6-i1_Q" name="barIcon" type="_C5x7gB25EeizvO6V6-i1_Q"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_HnkVwB24EeizvO6V6-i1_Q" name="Card"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_H7xEIB24EeizvO6V6-i1_Q" name="Health"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IL7AAB24EeizvO6V6-i1_Q" name="Armor"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_IfifkB24EeizvO6V6-i1_Q" name="Mana"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Ix2-oB24EeizvO6V6-i1_Q" name="Damage"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JGwQkB24EeizvO6V6-i1_Q" name="Name"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JZHy8B24EeizvO6V6-i1_Q" name="ID"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Jn7rAB24EeizvO6V6-i1_Q" name="Rarity"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_J_NikB24EeizvO6V6-i1_Q" name="Type"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_KPD8cB24EeizvO6V6-i1_Q" name="barpicture"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Mno9YB24EeizvO6V6-i1_Q" name="largepicture"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_NK2_MB24EeizvO6V6-i1_Q" name="description"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_runVEB27EeizvO6V6-i1_Q" client="_Xn-bIB20EeizvO6V6-i1_Q" supplier="_Y_LeoB20EeizvO6V6-i1_Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_8M1NQB22EeizvO6V6-i1_Q" name="Int"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_GbCtsB23EeizvO6V6-i1_Q" name="ImageIcon[30]"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_TcSWcB23EeizvO6V6-i1_Q" name="Card[30]"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_NsNDoB22EeizvO6V6-i1_Q" name="Server">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YZxrgB20EeizvO6V6-i1_Q" name="Server">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_qTQZEB21EeizvO6V6-i1_Q" name="Card1" type="_Y_LeoB20EeizvO6V6-i1_Q"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_RkWZ4B22EeizvO6V6-i1_Q" name="Create Card"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_DVO94B24EeizvO6V6-i1_Q" client="_YZxrgB20EeizvO6V6-i1_Q" supplier="_Y_LeoB20EeizvO6V6-i1_Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_s3An4B24EeizvO6V6-i1_Q" name="String"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_C5x7gB25EeizvO6V6-i1_Q" name="ImageIcon"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_RJ6ZQB25EeizvO6V6-i1_Q" name="App">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YxnjwB20EeizvO6V6-i1_Q" name="App">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_aG_pAB25EeizvO6V6-i1_Q" name="stillOn" type="_iAG6UB25EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_acJZoB25EeizvO6V6-i1_Q" name="macLogAddress" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_c71IIB25EeizvO6V6-i1_Q" name="pcLogAddress" type="_s3An4B24EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_d0MTgB25EeizvO6V6-i1_Q" name="friendlyCards" type="_ubzmAB25EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_eE4a4B25EeizvO6V6-i1_Q" name="opponentCards" type="_ubzmAB25EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_eTVtoB25EeizvO6V6-i1_Q" name="outPut" type="_ubzmAB25EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_eeLEoB25EeizvO6V6-i1_Q" name="server" type="_3XPP8B25EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_en4aQB25EeizvO6V6-i1_Q" name="friendlyDeck" type="_Xn-bIB20EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_e2Bj8B25EeizvO6V6-i1_Q" name="logReader" type="_KAwiEB21EeizvO6V6-i1_Q"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YK6W0B25EeizvO6V6-i1_Q" name="App"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_YcUP4B25EeizvO6V6-i1_Q" name="main"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Ypz5UB25EeizvO6V6-i1_Q" name="openFile"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Y4Fl4B25EeizvO6V6-i1_Q" name="prcessingLine"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_0cGpoB27EeizvO6V6-i1_Q" client="_YxnjwB20EeizvO6V6-i1_Q" supplier="_KAwiEB21EeizvO6V6-i1_Q"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_3CHpoB27EeizvO6V6-i1_Q" client="_YxnjwB20EeizvO6V6-i1_Q" supplier="_Xn-bIB20EeizvO6V6-i1_Q"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_4BpM8B27EeizvO6V6-i1_Q" client="_YxnjwB20EeizvO6V6-i1_Q" supplier="_YZxrgB20EeizvO6V6-i1_Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iAG6UB25EeizvO6V6-i1_Q" name="boolean"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ubzmAB25EeizvO6V6-i1_Q" name="ArrayList&lt;String>"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_3XPP8B25EeizvO6V6-i1_Q" name="Server"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_OCwloB26EeizvO6V6-i1_Q" name="logReader">
+    <packagedElement xmi:type="uml:Class" xmi:id="_KAwiEB21EeizvO6V6-i1_Q" name="Log_Reader">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Tomz0B26EeizvO6V6-i1_Q" name="Log_Reader"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_T3ngMB26EeizvO6V6-i1_Q" name="lineContainsCards"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_UPZHAB26EeizvO6V6-i1_Q" name="isFriendlyCards"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_UzIGMB26EeizvO6V6-i1_Q" name="isOpponentCards"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VAbiYB26EeizvO6V6-i1_Q" name="isNewGame"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VMRmAB26EeizvO6V6-i1_Q" name="isSendingCardBackToDeck"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VaExcB26EeizvO6V6-i1_Q" name="idToNames"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VoCU8B26EeizvO6V6-i1_Q" name="createTestIDs"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_wbi-QB27EeizvO6V6-i1_Q" client="_KAwiEB21EeizvO6V6-i1_Q" supplier="_Xn-bIB20EeizvO6V6-i1_Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_vDOV4B26EeizvO6V6-i1_Q" name="GUI">
+    <packagedElement xmi:type="uml:Class" xmi:id="_xIYrkB26EeizvO6V6-i1_Q" name="Deck_tracker">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__JSagB26EeizvO6V6-i1_Q" name="frame" type="_ICvHcB27EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__ZEi8B26EeizvO6V6-i1_Q" name="frame1" type="_ICvHcB27EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__f_DQB26EeizvO6V6-i1_Q" name="deck" type="_Xn-bIB20EeizvO6V6-i1_Q"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__pI_QB26EeizvO6V6-i1_Q" name="cardImages" type="_GbCtsB23EeizvO6V6-i1_Q"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_8AgEoB26EeizvO6V6-i1_Q" name="main"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_8OtfwB26EeizvO6V6-i1_Q" name="Deck_tracker"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_8wn6AB26EeizvO6V6-i1_Q" name="initialize"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_8-4_gB26EeizvO6V6-i1_Q" name="actionPerformed"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9FQtQB26EeizvO6V6-i1_Q" name="mouseClicked"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9Mf9sB26EeizvO6V6-i1_Q" name="mousePressed"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9TD4sB26EeizvO6V6-i1_Q" name="mouseReleased"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9Z-ZAB26EeizvO6V6-i1_Q" name="mouseEntered"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_9i8u0B26EeizvO6V6-i1_Q" name="mouseExited"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_5SbfYB27EeizvO6V6-i1_Q" client="_xIYrkB26EeizvO6V6-i1_Q" supplier="_YxnjwB20EeizvO6V6-i1_Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ICvHcB27EeizvO6V6-i1_Q" name="JFrame"/>
+</uml:Model>
