@@ -40,7 +40,7 @@ public class DeckTest{
 		card.damage = 9;
 		card.health = -1;
 		card.largepicture();
-		
+		card.largeIcon.getImage();
 		
 	}
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Heartstone_Deck_Track</name>
+	<name>org.eclipse.m2e.core.maven2Builder</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -10,13 +10,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-	</buildSpec>
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
+	</buildSpec>
 	<natures>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
 </projectDescription>

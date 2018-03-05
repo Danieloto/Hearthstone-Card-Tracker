@@ -69,7 +69,6 @@ public class Card {
 	}
 	
 	public ImageIcon largepicture(){
-		largeIcon = new ImageIcon("Dog.jpg");
 		return largeIcon;
 	}
 	
