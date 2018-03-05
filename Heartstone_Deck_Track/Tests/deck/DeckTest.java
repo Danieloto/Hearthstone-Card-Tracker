@@ -42,6 +42,8 @@ public class DeckTest{
 		card.largepicture();
 		card.largeIcon.getImage();
 		
+		card.id = "insert id";
+		assertEquals(card.id, "insert id");
 	}
 
 }

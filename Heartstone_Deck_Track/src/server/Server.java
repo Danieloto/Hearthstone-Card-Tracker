@@ -8,6 +8,11 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import deck.Card;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Server {
 	
@@ -48,6 +53,12 @@ public class Server {
 					URL url = new URL(imgLoc);
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
+					
+					//small image
+                    Image image = icon.getImage(); // transform it 
+                    Image newimg = image.getScaledInstance(28, 28,  java.awt.Image.SCALE_SMOOTH); // scaling 
+                    icon = new ImageIcon(newimg);  // transform it back
+                    card.smallIcon = icon;
 				}
 				if(s.equals("cost")) {
 					x++;
