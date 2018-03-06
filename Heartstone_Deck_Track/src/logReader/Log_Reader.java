@@ -102,5 +102,25 @@ public class Log_Reader {
 		}
 		return result;
 	}
-
+	public String[] createTestNames(int deckTestNumber) {
+		String[] result= new String[30];
+		if(deckTestNumber==0) {
+		result[0]=result[1]="ArcaneMissiles";//Arcane missles
+		result[2]=result[3]="MurlocRaider";//Murloc Raider
+		result[4]=result[5]="ArcaneExplosion";//Arcane Explosion
+		result[6]=result[7]="BloodfenRaptor";//Bloodfen Raptor
+		result[8]=result[9]="NoviceEngineer";//Novice Engineer
+		result[10]=result[11]="RiverCrocolisk";//River Crocolisk
+		result[12]=result[13]="ArcaneIntellect";//Arcane Intellect
+		result[14]=result[15]="RaidLeader";//Raid Leader
+		result[16]=result[17]="Wolfrider";//Wolfrider
+		result[18]=result[19]="Fireball";//Fireball
+		result[20]=result[21]="OasisSnapjaw";//Oasis Snapjaw
+		result[22]=result[23]="Polymorph";//Polymorph
+		result[24]=result[25]="Sen'jinShieldmasta";//Sen'jin Shieldmasta
+		result[26]=result[27]="Nightblade";//Nightblade
+		result[28]=result[29]="BoulderfistOgre";//Boulderfist Ogre	
+	}
+	return result;
+}
 }

@@ -58,7 +58,7 @@ public class Server {
                     Image image = icon.getImage(); // transform it 
                     Image newimg = image.getScaledInstance(28, 28,  java.awt.Image.SCALE_SMOOTH); // scaling 
                     icon = new ImageIcon(newimg);  // transform it back
-                    card.smallIcon = icon;
+                    card.barIcon = icon;
 				}
 				if(s.equals("cost")) {
 					x++;
