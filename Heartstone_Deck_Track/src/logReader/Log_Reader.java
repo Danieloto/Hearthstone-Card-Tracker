@@ -32,28 +32,28 @@ public class Log_Reader {
 		String name = "";
 		switch (id) {
 		case "EX1_277":
-			name = "Arcane Missiles";
+			name = "ArcaneMissiles";
 			break;
 		case "CS2_168":
-			name = "Murloc Raider";
+			name = "MurlocRaider";
 			break;
 		case "CS2_025":
-			name = "Arcane Explosion";
+			name = "ArcaneExplosion";
 			break;
 		case "CS2_172":
-			name = "Bloodfen Raptor";
+			name = "BloodfenRaptor";
 			break;
 		case "EX1_015":
-			name = "Novice Engineer";
+			name = "NoviceEngineer";
 			break;
 		case "CS2_120":
-			name = "River Crocolisk";
+			name = "RiverCrocolisk";
 			break;
 		case "CS2_023":
-			name = "Arcane Intellect";
+			name = "ArcaneIntellect";
 			break;
 		case "CS2_122":
-			name = "Raid Leader";
+			name = "RaidLeader";
 			break;
 		case "CS2_124":
 			name = "Wolfrider";
@@ -62,19 +62,19 @@ public class Log_Reader {
 			name = "Fireball";
 			break;
 		case "CS2_119":
-			name = "Oasis Snapjaw";
+			name = "OasisSnapjaw";
 			break;
 		case "CS2_022":
 			name = "Polymorph";
 			break;
 		case "CS2_179":
-			name = "Sen'jin Shieldmasta";
+			name = "Sen'jinShieldmasta";
 			break;
 		case "EX1_593":
 			name = "Nightblade";
 			break;
 		case "CS2_200":
-			name = "Boulderfist Ogre";
+			name = "BoulderfistOgre";
 			break;
 
 		}
