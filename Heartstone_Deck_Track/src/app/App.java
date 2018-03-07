@@ -10,13 +10,13 @@ import deck.Deck;
 import logReader.Log_Reader;
 import server.Server;
 
-public class App {
+public class App extends Thread {
 
 	private boolean stillOn;
 	private static String macLogAddress="/Applications/Hearthstone/Logs/Power.log";
 	private static String pcLogAddress="C:/Program Files (x86)/Hearthstone/Logs/Power.log";
-	private ArrayList<String> friendlyCards;
-	private ArrayList<String> opponentCards;
+	public ArrayList<String> friendlyCards;
+	public ArrayList<String> opponentCards;
 	private ArrayList<String> outPut;
 	private Server server;
 	public Deck friendlyDeck;
@@ -46,16 +46,8 @@ public class App {
 	//windows at C:\Program Files (x86)\Hearthstone\Logs\Power.log
 	// see : https://github.com/jleclanche/fireplace/wiki/How-to-enable-logging
 	
-	public static void main(String args[]) {
-		App app = new App();
-		//It determine system type so knows where log file is
-		if(System.getProperty("os.name").toLowerCase().contains("win"))
-			app.openFile(pcLogAddress);
-		else
-			app.openFile(macLogAddress);
-		
-	}
-
+	
+	
 	public void openFile(String logLocation) {
 
 		try {
@@ -110,6 +102,7 @@ public class App {
 				/*
 				 * use frendlyCards to develop your code
 				 */
+				
 
 			} else if (logReader.isOpponentCards(line)) {
 
