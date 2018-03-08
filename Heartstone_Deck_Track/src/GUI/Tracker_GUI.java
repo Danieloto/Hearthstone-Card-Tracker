@@ -5,10 +5,10 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-
+import deck.Card;
 import deck.Deck;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -30,6 +30,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logReader.Log_Reader;
+import server.Server;
 
 public class Tracker_GUI extends Application {
 
@@ -38,14 +39,16 @@ public class Tracker_GUI extends Application {
 	LargePic lp = new LargePic();
 	Image[] large_picture = new Image[30];
 	Image[] small_picture = new Image[30];
-
+	static Label[] lables;
+	Scene scene;
+	AnchorPane buttom;
 	private static boolean stillOn = true;
 	private static String macLogAddress = "/Applications/Hearthstone/Logs/Power.log";
 	private static String pcLogAddress = "C:/Program Files (x86)/Hearthstone/Logs/Power.log";
 	private static ArrayList<String> friendlyCards = new ArrayList<String>();
 	private static ArrayList<String> opponentCards = new ArrayList<String>();
 	private static ArrayList<String> outPut = new ArrayList<String>();
-	public Deck friendlyDeck;
+	public static Deck friendlyDeck;
 	private static Log_Reader logReader = new Log_Reader();
 
 	/*
@@ -120,7 +123,7 @@ public class Tracker_GUI extends Application {
 			try {
 				FileInputStream fstream = new FileInputStream(logLocation);
 				BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
+				Thread.sleep(1000);
 				String line = null;
 				while (stillOn) {
 					line = br.readLine();
@@ -130,10 +133,29 @@ public class Tracker_GUI extends Application {
 
 					}
 					while (line == null) {
-						//for (String s : outPut)
-							//System.out.println(s);
+						for (String s : outPut)
+							System.out.println(s);
+						Card tempCard;
+						Server server=new Server();
+						ArrayList<String> cardsDrawn=friendlyCards;
+						Deck dummyDeck=friendlyDeck;
+						for(String cardName: friendlyCards) {
+							for(int i=0;i<30;i++) {
+								String cardNameInDeck=friendlyDeck.getCard(i).name;
+								double testNumber=friendlyDeck.getCard(i).getValue().doubleValue();
+								if(cardName.equals(cardNameInDeck)&&testNumber!=.25) {
+									
+									friendlyDeck.getCard(i).setValue(.25);
+									lables[i].setOpacity(.25);
+									break;
+								}
+							}
+						}
+						friendlyCards.clear();
 						outPut.clear();
+						
 						line = br.readLine();
+						
 						if (br.readLine() != null) {
 							Thread.sleep(1000);
 							break;
@@ -157,7 +179,7 @@ public class Tracker_GUI extends Application {
 		
 		try {
 
-			AnchorPane buttom = new AnchorPane();
+			buttom= new AnchorPane();
 			buttom.setPrefSize(350, 700);
 			buttom.setBackground(null);
 
@@ -181,14 +203,13 @@ public class Tracker_GUI extends Application {
 
 			VBox vb = new VBox();
 			list.setContent(vb);
-			Label[] lables = new Label[30];
 			String[] image_name = logReader.createTestNames(0);
 
 			put_large_image(image_name); // put images into the image array larp and smlp
 			put_small_image(image_name);
 
 			for (int i = 0; i < 30; i++) {
-				lables[i] = new Label(image_name[i]);
+				lables[i] = new Label();
 
 				lables[i].setPrefSize(340, 50);
 
@@ -200,13 +221,9 @@ public class Tracker_GUI extends Application {
 			}
 			//System.out.println(friendlyCards.get(0));
 			//System.out.println(lables[0].getText());
-			for(int i=0;i<friendlyCards.size();i++) {
-				for(int j=0;j<30;j++) {
-				if(friendlyCards.get(i).equalsIgnoreCase(lables[j].getText())) {
-					lables[j].setOpacity(0);
-				}
-				}
-			}
+//			for(int i=0;i<friendlyDeck.getSize();i++) {
+//				lables[i].opacityProperty().bind(friendlyDeck.getCard(i));
+//			}
 			//lables[0].setOpacity(0);
 			
 
@@ -300,10 +317,9 @@ public class Tracker_GUI extends Application {
 
 					}
 				});
-
 			}
 
-			Scene scene = new Scene(buttom, 350, 700);
+		    scene = new Scene(buttom, 350, 700);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -316,10 +332,21 @@ public class Tracker_GUI extends Application {
 	}
 
 	public static void main(String[] args) {
-
+		lables = new Label[30];
+		friendlyDeck=new Deck();
+		String[] deckCards= logReader.createTestNames(0);
+		Server server = new Server();
+		Card tempCard;
+		for(String cardName: deckCards) {
+			tempCard=server.createCard(cardName);
+			friendlyDeck.addCard(tempCard);
+		}
 		Log_Processor logProcessor = new Log_Processor();
 		logProcessor.start();
-		launch(args);
+		while(true) {
+			launch(args);
+		}
+		
 
 	}
 

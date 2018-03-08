@@ -1,15 +1,25 @@
 package deck;
 
-import javax.swing.ImageIcon;
+import java.util.ArrayList;
 
-public class Card {
+import javax.swing.ImageIcon;
+import javax.xml.bind.Unmarshaller.Listener;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
+public class Card implements ObservableValue<Number>{
+	private Number opacity;
 	public int health, armor, mana, damage;
 	public String rarity, type, desc, name, id;
 	public ImageIcon largeIcon, barIcon;
-	
-	
+	ArrayList<InvalidationListener> invalListener = new ArrayList<InvalidationListener>();
+	ArrayList<ChangeListener> changeListener = new ArrayList<ChangeListener>();
+
 	//Builds a basic card object with default values
 	public Card(){
+		opacity=1.0;
 		health = 0;
 		armor = 0;
 		mana = 0;
@@ -74,5 +84,36 @@ public class Card {
 	
 	public String description() {
 		return desc;
+	}
+	public void setValue(Number n) {
+		opacity=n;
+		
+	}
+	public Number getValue() {
+		// TODO Auto-generated method stub
+		return opacity;
+	}
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+		invalListener.add(listener);
+		
+	}
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+		invalListener.remove((Listener) listener);
+		
+	}
+	@Override
+	public void addListener(ChangeListener listener) {
+		changeListener.add(listener);
+		
+	}
+
+	@Override
+	public void removeListener(ChangeListener listener) {
+		changeListener.remove(listener);
+		
 	}
 }

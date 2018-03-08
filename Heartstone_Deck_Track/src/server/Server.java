@@ -98,7 +98,7 @@ public class Server {
 					card.desc = s;
 				}
 			}
-			
+			card.name=name;
 			return card;
 		}
 		catch(UnirestException e) { 

@@ -20,7 +20,9 @@ public class Deck{
 			count++;//Changes card total
 		}
 	}
-	
+	public int getSize() {
+		return count;
+	}
 	public void removeCard(Card card){ //Removes specified card
 		for(int i = 0; i < 30; i++){
 			if(deck[i] == card){

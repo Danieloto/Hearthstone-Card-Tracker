@@ -32,28 +32,28 @@ public class Log_Reader {
 		String name = "";
 		switch (id) {
 		case "EX1_277":
-			name = "ArcaneMissiles";
+			name = "Arcane Missiles";
 			break;
 		case "CS2_168":
-			name = "MurlocRaider";
+			name = "Murloc Raider";
 			break;
 		case "CS2_025":
-			name = "ArcaneExplosion";
+			name = "Arcane Explosion";
 			break;
 		case "CS2_172":
-			name = "BloodfenRaptor";
+			name = "Bloodfen Raptor";
 			break;
 		case "EX1_015":
-			name = "NoviceEngineer";
+			name = "Novice Engineer";
 			break;
 		case "CS2_120":
-			name = "RiverCrocolisk";
+			name = "River Crocolisk";
 			break;
 		case "CS2_023":
-			name = "ArcaneIntellect";
+			name = "Arcane Intellect";
 			break;
 		case "CS2_122":
-			name = "RaidLeader";
+			name = "Raid Leader";
 			break;
 		case "CS2_124":
 			name = "Wolfrider";
@@ -62,19 +62,19 @@ public class Log_Reader {
 			name = "Fireball";
 			break;
 		case "CS2_119":
-			name = "OasisSnapjaw";
+			name = "Oasis Snapjaw";
 			break;
 		case "CS2_022":
 			name = "Polymorph";
 			break;
 		case "CS2_179":
-			name = "Sen'jinShieldmasta";
+			name = "Sen'jin Shieldmasta";
 			break;
 		case "EX1_593":
 			name = "Nightblade";
 			break;
 		case "CS2_200":
-			name = "BoulderfistOgre";
+			name = "Boulderfist Ogre";
 			break;
 
 		}
@@ -105,21 +105,21 @@ public class Log_Reader {
 	public String[] createTestNames(int deckTestNumber) {
 		String[] result= new String[30];
 		if(deckTestNumber==0) {
-		result[0]=result[1]="ArcaneMissiles";//Arcane missles
-		result[2]=result[3]="MurlocRaider";//Murloc Raider
-		result[4]=result[5]="ArcaneExplosion";//Arcane Explosion
-		result[6]=result[7]="BloodfenRaptor";//Bloodfen Raptor
-		result[8]=result[9]="NoviceEngineer";//Novice Engineer
-		result[10]=result[11]="RiverCrocolisk";//River Crocolisk
-		result[12]=result[13]="ArcaneIntellect";//Arcane Intellect
-		result[14]=result[15]="RaidLeader";//Raid Leader
-		result[16]=result[17]="Wolfrider";//Wolfrider
-		result[18]=result[19]="Fireball";//Fireball
-		result[20]=result[21]="OasisSnapjaw";//Oasis Snapjaw
-		result[22]=result[23]="Polymorph";//Polymorph
-		result[24]=result[25]="Sen'jinShieldmasta";//Sen'jin Shieldmasta
+		result[0]=result[1]="Arcane Missiles";//Arcane missles
+		result[2]=result[3]="Murloc Raider";//Murloc Raider
+		result[4]=result[5]="Arcane Explosion";//Arcane Explosion
+		result[6]=result[7]="Bloodfen Raptor";//Bloodfen Raptor
+		result[8]=result[9]="Novice Engineer";//Novice Engineer
+		result[10]=result[11]="River Crocolisk";//River Crocolisk
+		result[12]=result[13]="Arcane Intellect";//Arcane Intellect
+		result[14]=result[15]="Raid Leader";//Raid Leader
+		result[16]=result[17]="Wolf rider";//Wolfrider
+		result[18]=result[19]="Fire ball";//Fireball
+		result[20]=result[21]="Oasis Snapjaw";//Oasis Snapjaw
+		result[22]=result[23]="Poly morph";//Polymorph
+		result[24]=result[25]="Sen'jin Shieldmasta";//Sen'jin Shieldmasta
 		result[26]=result[27]="Nightblade";//Nightblade
-		result[28]=result[29]="BoulderfistOgre";//Boulderfist Ogre	
+		result[28]=result[29]="Boulderfist Ogre";//Boulderfist Ogre	
 	}
 	return result;
 }
