@@ -1,7 +1,6 @@
 package GUI;
 
 
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -19,6 +18,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -215,15 +216,17 @@ public class Tracker_GUI extends Application {
 			text.setLayoutX(400);
 			text.setLayoutY(50);
 			buttom.getChildren().addAll(text);
-			text.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+			text.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 				@Override
-				public void handle(MouseEvent e) {
-					//Server.createCard(text.getCharacters().toString());	
-					deck1.addCard(Server.createCard(text.getCharacters().toString()));
-					for(int abc = 0; abc < deck1.getSize(); abc++){
-						System.out.println(deck1.getCard(abc).Name());
+				public void handle(KeyEvent e) {
+					if(e.getCode().equals(KeyCode.ENTER)){
+						//Server.createCard(text.getCharacters().toString());	
+						deck1.addCard(Server.createCard(text.getCharacters().toString()));
+						for(int abc = 0; abc < deck1.getSize(); abc++){
+							System.out.println(deck1.getCard(abc).Name());
+						}
+						System.out.println(" ");
 					}
-					System.out.println(" ");
 				}
 			});
 				
