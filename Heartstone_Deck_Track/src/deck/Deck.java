@@ -7,6 +7,7 @@ public class Deck{
 	private Card[] deck; //object array of cards to make up deck.
 	int count;
 	public ImageIcon[] images = new ImageIcon[30];
+	private int inDeck;
 	
 	public Deck(){ //Creates Deck
 		count = 0;
@@ -15,9 +16,17 @@ public class Deck{
 	
 	public void addCard(Card card){
 		if(count < 30){ //Adds card if deck is not full
-			deck[count] = card;
-			images[count] = card.largepicture();
-			count++;//Changes card total
+			inDeck = 0;
+			for(int i = 0; i < count; i++){
+				if(card.Name().equals(deck[i].Name())){
+					inDeck++;
+				}
+			}
+			if(inDeck < 2){
+				deck[count] = card;
+				images[count] = card.largepicture();
+				count++;//Changes card total
+			}
 		}
 	}
 	public int getSize() {

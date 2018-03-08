@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import server.Server;
+
 public class DeckTest{
 
 	@Test
@@ -14,6 +16,7 @@ public class DeckTest{
 		Card card3 = new Card();
 		Card card4 = new Card();
 		Card card5 = new Card();
+		card5 = Server.createCard("Ysera");
 		card1.mana = 4;
 		assertEquals(deck.count, 0);
 		deck.addCard(card1);
@@ -29,6 +32,8 @@ public class DeckTest{
 		assertEquals(deck.getCard(card3),card3);
 		assertEquals(deck.getCard(1),card3);
 		assertEquals(deck.getCardLocation(card3), 1);
+		deck.addCard(Server.createCard("Ysera"));
+		assertEquals(deck.count, 5);
 		
 		
 	}
@@ -40,7 +45,6 @@ public class DeckTest{
 		card.damage = 9;
 		card.health = -1;
 		card.largepicture();
-		card.largeIcon.getImage();
 		
 		card.id = "insert id";
 		assertEquals(card.id, "insert id");

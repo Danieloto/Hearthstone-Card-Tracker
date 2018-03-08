@@ -1,5 +1,7 @@
 package GUI;
 
+
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -14,6 +16,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -42,6 +45,8 @@ public class Tracker_GUI extends Application {
 	static Label[] lables;
 	Scene scene;
 	AnchorPane buttom;
+	public static Deck deck1;
+	private static int count;
 	private static boolean stillOn = true;
 	private static String macLogAddress = "/Applications/Hearthstone/Logs/Power.log";
 	private static String pcLogAddress = "C:/Program Files (x86)/Hearthstone/Logs/Power.log";
@@ -204,7 +209,26 @@ public class Tracker_GUI extends Application {
 			VBox vb = new VBox();
 			list.setContent(vb);
 			String[] image_name = logReader.createTestNames(0);
-
+			
+			
+			TextField text = new TextField("Search for Cards");
+			text.setLayoutX(400);
+			text.setLayoutY(50);
+			buttom.getChildren().addAll(text);
+			text.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					//Server.createCard(text.getCharacters().toString());	
+					deck1.addCard(Server.createCard(text.getCharacters().toString()));
+					for(int abc = 0; abc < deck1.getSize(); abc++){
+						System.out.println(deck1.getCard(abc).Name());
+					}
+					System.out.println(" ");
+				}
+			});
+				
+			
+			
 			put_large_image(image_name); // put images into the image array larp and smlp
 			put_small_image(image_name);
 
@@ -319,7 +343,7 @@ public class Tracker_GUI extends Application {
 				});
 			}
 
-		    scene = new Scene(buttom, 350, 700);
+		    scene = new Scene(buttom, 650, 700);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -334,6 +358,7 @@ public class Tracker_GUI extends Application {
 	public static void main(String[] args) {
 		lables = new Label[30];
 		friendlyDeck=new Deck();
+		deck1 = new Deck();
 		String[] deckCards= logReader.createTestNames(0);
 		Server server = new Server();
 		Card tempCard;
