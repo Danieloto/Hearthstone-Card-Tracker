@@ -1,4 +1,4 @@
-package image_crop;
+package test;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -40,7 +40,7 @@ public class CropImg {
 
 	    }
 
-	    public static final int DEFAULT_WIDTH = 286;
+	    public static final int DEFAULT_WIDTH = 286 + 75;
 	    public static final int DEFAULT_HEIGHT = 420;
 	}
 
@@ -71,7 +71,12 @@ public class CropImg {
 	        Image image_disp = icon.getImage();
 	        image_disp = createImage(new FilteredImageSource(image_disp.getSource(), new CropImageFilter(0, 188, 286, 50)));
 	    		ImageIcon icon2 = new ImageIcon(image_disp);
-
+	    		
+	    	Image image_disp2 = icon.getImage();
+	    	image_disp2 = createImage(new FilteredImageSource(image_disp2.getSource(), new CropImageFilter(0, 35, 75, 50)));
+    			ImageIcon icon3 = new ImageIcon(image_disp2);
+    			
+    		
 	            
 	    		//for image cropping - label + image
  
@@ -84,6 +89,7 @@ public class CropImg {
 	    		
 		    super.paintComponent(g);
 		    icon2.paintIcon(this, g, 0, 0);
+		    icon3.paintIcon(this, g, 270, 0);
 	            
 	            
 //	        if(image == null) return;
