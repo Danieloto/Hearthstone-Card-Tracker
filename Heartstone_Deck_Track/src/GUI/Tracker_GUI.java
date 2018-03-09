@@ -226,6 +226,7 @@ public class Tracker_GUI extends Application {
 							System.out.println(deck1.getCard(abc).Name());
 						}
 						System.out.println(" ");
+						text.clear();
 					}
 				}
 			});
