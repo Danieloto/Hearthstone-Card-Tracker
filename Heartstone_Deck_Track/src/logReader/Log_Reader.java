@@ -114,7 +114,7 @@ public class Log_Reader {
 		result[12]=result[13]="Arcane Intellect";//Arcane Intellect
 		result[14]=result[15]="Raid Leader";//Raid Leader
 		result[16]=result[17]="Wolf rider";//Wolfrider
-		result[18]=result[19]="Fire ball";//Fireball
+		result[18]=result[19]="Fireball";//Fireball
 		result[20]=result[21]="Oasis Snapjaw";//Oasis Snapjaw
 		result[22]=result[23]="Poly morph";//Polymorph
 		result[24]=result[25]="Sen'jin Shieldmasta";//Sen'jin Shieldmasta
