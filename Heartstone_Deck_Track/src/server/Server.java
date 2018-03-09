@@ -11,6 +11,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import deck.Card;
 import javax.imageio.ImageIO;
+
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
@@ -57,6 +59,8 @@ public class Server extends JComponent {
 					URL url = new URL(imgLoc);
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
+					
+					5
 					
 					Image image_disp = icon.getImage();
 			        image_disp = createImage(new FilteredImageSource(image_disp.getSource(), new CropImageFilter(0, 188, 286, 50)));
