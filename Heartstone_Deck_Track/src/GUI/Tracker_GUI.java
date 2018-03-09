@@ -232,6 +232,7 @@ public class Tracker_GUI extends Application {
 					if(e.getCode().equals(KeyCode.ENTER)){
 						//Server.createCard(text.getCharacters().toString());	
 						deck1.addCard(Server.createCard(text.getCharacters().toString()));
+						System.out.println(" ");
 						for(int abc = 0; abc < deck1.getSize(); abc++){
 							System.out.println(deck1.getCard(abc).Name());
 						}

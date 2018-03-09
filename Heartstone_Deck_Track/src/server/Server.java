@@ -60,13 +60,6 @@ public class Server extends JComponent {
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
 					
-					5
-					
-					Image image_disp = icon.getImage();
-			        image_disp = createImage(new FilteredImageSource(image_disp.getSource(), new CropImageFilter(0, 188, 286, 50)));
-			    		
-			    	Image image_disp2 = icon.getImage();
-			    	image_disp2 = createImage(new FilteredImageSource(image_disp2.getSource(), new CropImageFilter(0, 35, 75, 50)));
 
 				}
 				if(s.equals("cost")) {
