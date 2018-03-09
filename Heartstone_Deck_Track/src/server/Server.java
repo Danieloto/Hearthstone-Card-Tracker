@@ -3,18 +3,22 @@ package server;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import deck.Card;
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
+import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 
-public class Server {
+
+@SuppressWarnings("serial")
+public class Server extends JComponent {
 	
 	/*
 	 * Creates card object from repository using name or ID
@@ -54,11 +58,12 @@ public class Server {
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
 					
-					//small image
-                    Image image = icon.getImage(); // transform it 
-                    Image newimg = image.getScaledInstance(28, 28,  java.awt.Image.SCALE_SMOOTH); // scaling 
-                    icon = new ImageIcon(newimg);  // transform it back
-                    card.barIcon = icon;
+					Image image_disp = icon.getImage();
+			        image_disp = createImage(new FilteredImageSource(image_disp.getSource(), new CropImageFilter(0, 188, 286, 50)));
+			    		
+			    	Image image_disp2 = icon.getImage();
+			    	image_disp2 = createImage(new FilteredImageSource(image_disp2.getSource(), new CropImageFilter(0, 35, 75, 50)));
+
 				}
 				if(s.equals("cost")) {
 					x++;

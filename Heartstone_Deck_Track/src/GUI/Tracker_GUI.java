@@ -118,6 +118,16 @@ public class Tracker_GUI extends Application {
 				beginIndex = line.indexOf("card") + 7;
 				endIndex = line.indexOf("card") + 14;
 				String cardName = temp.idToNames(line.substring(beginIndex, endIndex));
+				for(int i=0;i<30;i++) {
+					String cardNameInDeck=friendlyDeck.getCard(i).name;
+					double testNumber=friendlyDeck.getCard(i).getValue().doubleValue();
+					if(cardName.equals(cardNameInDeck)&&testNumber==.25) {
+						
+						friendlyDeck.getCard(i).setValue(1);
+						lables[i].setOpacity(1);
+						break;
+					}
+				}
 				friendlyCards.remove(cardName);
 				outPut.add("*" + cardName + " returned to deck");
 			}
