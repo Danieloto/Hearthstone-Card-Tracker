@@ -27,7 +27,6 @@ public class Card implements ObservableValue<Number>{
 		rarity = "";
 		type = "";
 		barIcon = null;
-		manaIcon = null;
 		largeIcon = null;
 		desc = "";
 		name = "";

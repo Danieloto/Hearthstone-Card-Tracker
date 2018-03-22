@@ -1,6 +1,8 @@
 package GUI;
 
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,7 +44,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logReader.Log_Reader;
 import server.Server;
+import javafx.embed.swing.SwingFXUtils;
 
+@SuppressWarnings("restriction")
 public class Tracker_GUI extends Application {
 
 	Background black = new Background(new BackgroundFill(Paint.valueOf("#000000"), CornerRadii.EMPTY, Insets.EMPTY));// red
@@ -219,7 +223,7 @@ public class Tracker_GUI extends Application {
 
 			ScrollPane list = new ScrollPane();
 			list.setPrefHeight(600);
-			list.setPrefWidth(350);
+			list.setPrefWidth(286 + 50);
 			list.setLayoutX(0);
 			list.setLayoutY(100);
 			buttom.getChildren().add(list);
@@ -344,7 +348,7 @@ public class Tracker_GUI extends Application {
 			for (int i = 0; i < 30; i++) {
 				lables[i] = new Label();
 
-				lables[i].setPrefSize(340, 50);
+				lables[i].setPrefSize(286 + 30, 50);
 
 				BackgroundImage BackImage = new BackgroundImage((small_picture[i]), BackgroundRepeat.REPEAT,
 						BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -487,16 +491,42 @@ public class Tracker_GUI extends Application {
 	public void put_large_image(String[] image_name) {
 
 		// System.out.println(("Image/"+image_name[0]+".png").replaceAll("\\s+",""));
-		for (int i = 0; i < 30; i++) {
-			large_picture[i] = new Image(("Image/" + image_name[i] + ".png").replaceAll("\\s+", ""));
+		for (int i = 0; i < friendlyDeck.getSize(); i++) {
+			//large_picture[i] = new Image(("Image/" + image_name[i] + ".png").replaceAll("\\s+", ""));
+			
+			Card crd = friendlyDeck.getCard(i);
+			if(crd.barIcon != null) {
+				java.awt.Image img = Server.createCard(image_name[i]).largeIcon.getImage();
+				BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+				Graphics2D bGr = bimage.createGraphics();
+			    bGr.drawImage(img, 0, 0, null);
+			    bGr.dispose();
+			    large_picture[i] = SwingFXUtils.toFXImage(bimage, null);
+			}
+			else {
+				large_picture[i] = new Image(("Image/" + "null.png").replaceAll("\\s+", ""));
+			}
 		}
 
 	}
 
 	public void put_small_image(String[] image_name) {
 
-		for (int i = 0; i < 30; i++) {
-			small_picture[i] = new Image(("Image/" + image_name[i] + "(s).png").replaceAll("\\s+", ""));
+		for (int i = 0; i < friendlyDeck.getSize(); i++) {
+			//small_picture[i] = new Image(("Image/" + image_name[i] + "(s).png").replaceAll("\\s+", ""));
+			
+			Card crd = friendlyDeck.getCard(i);
+			if(crd.barIcon != null) {
+				java.awt.Image img = Server.createCard(image_name[i]).barIcon.getImage();
+				BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+				Graphics2D bGr = bimage.createGraphics();
+			    bGr.drawImage(img, 0, 0, null);
+			    bGr.dispose();
+				small_picture[i] = SwingFXUtils.toFXImage(bimage, null);
+			}
+			else {
+				small_picture[i] = new Image(("Image/" + "nullBar.png").replaceAll("\\s+", ""));
+			}
 		}
 
 	}

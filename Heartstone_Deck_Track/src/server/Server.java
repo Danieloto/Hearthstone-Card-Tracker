@@ -2,6 +2,8 @@ package server;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
@@ -12,12 +14,15 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import deck.Card;
 import javax.imageio.ImageIO;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 
 @SuppressWarnings("serial")
@@ -34,8 +39,10 @@ public class Server {
 	
 		try {
 			
+			String decodeName = URLDecoder.decode(name, "UTF-8");
+			
 			//get info from repo
-			HttpResponse<JsonNode> response = Unirest.get("https://omgvamp-hearthstone-v1.p.mashape.com/cards/" + name).
+			HttpResponse<JsonNode> response = Unirest.get("https://omgvamp-hearthstone-v1.p.mashape.com/cards/" + decodeName).
 					header("X-Mashape-Key", "U62MhJxHw4mshNmyI9FDQEIjddITp1thCDWjsnf1b1GRoBalny").header("Accept", "application/json").asJson();
 			
 			//get body and parse out filler
@@ -61,20 +68,29 @@ public class Server {
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
 					
-					int x2 = 0, y = 188, w = 286, h = 50;
+					int x2 = 20, y = 235, w = 256, h = 50;
 					Image img = icon.getImage();
-					BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-					dst.getGraphics().drawImage(img, 0, 0, w, h, x, y, x + w, y + h, null);
-					ImageIcon nameBar = new ImageIcon(dst);
-					card.barIcon = nameBar;
+					BufferedImage nameBar = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+					nameBar.getGraphics().drawImage(img, 0, 0, w, h, x2, y, x2 + w, y + h, null);
 					
-					y = 35;
-					w = 75;
-					dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-					dst.getGraphics().drawImage(img, 0, 0, w, h, x, y, x + w, y + h, null);
-					ImageIcon manaBar = new ImageIcon(dst);
-					card.manaIcon = manaBar;
+					x2 = 20;
+					y = 70;
+					w = 60;
+					BufferedImage manaBar = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+					manaBar.getGraphics().drawImage(img, 0, 0, w, h, x2, y, x2 + w, y + h, null);
 					
+					int wid = nameBar.getWidth()+manaBar.getWidth()+5;
+					BufferedImage fullBar = new BufferedImage(wid,h + 5, BufferedImage.TYPE_INT_ARGB);
+					Graphics2D g2 = fullBar.createGraphics();
+				    Color oldColor = g2.getColor();
+				    g2.setPaint(Color.WHITE);
+			        g2.fillRect(0, 0, w, h);
+			        g2.setColor(oldColor);
+			        g2.drawImage(nameBar, null, 0, 0);
+			        g2.drawImage(manaBar, null, nameBar.getWidth() + 5, 0);
+			        g2.dispose();
+			        ImageIcon bar = new ImageIcon(fullBar);
+			        card.barIcon = bar;
 				}
 				if(s.equals("cost")) {
 					x++;
@@ -125,6 +141,9 @@ public class Server {
 		catch(MalformedURLException e) { 
 			//downloading image fails
 			System.out.print(e);
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

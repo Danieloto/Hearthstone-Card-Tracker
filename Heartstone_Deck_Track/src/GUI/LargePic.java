@@ -26,9 +26,10 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+@SuppressWarnings("restriction")
 public class LargePic extends Application {
 	///////////////////// profile////////////////////////////////
-	  BackgroundImage BackImage= new BackgroundImage(new Image("Image/123.png",290,45,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+	BackgroundImage BackImage= new BackgroundImage(new Image("Image/123.png",290,45,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
 	  ImageView ima=new ImageView();
 	  int num;
 	  double x,y;
