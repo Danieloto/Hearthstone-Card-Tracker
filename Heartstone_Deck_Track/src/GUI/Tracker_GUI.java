@@ -3,16 +3,22 @@ package GUI;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import deck.Card;
 import deck.Deck;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -222,10 +228,27 @@ public class Tracker_GUI extends Application {
 			String[] image_name = logReader.createTestNames(0);
 			
 			
-			TextField text = new TextField("Search for Cards");
-			text.setLayoutX(400);
+			TextField text = new TextField("");
+			TextField search = new TextField("Add Cards to Deck");
+			TextField delete1 = new TextField("Remove Cards to Deck");
+			TextField delete = new TextField("");
+			Button save = new Button("Save Deck");
+			save.setLayoutX(350);
+			save.setLayoutY(0);
+			Button load = new Button("Load Deck");
+			load.setLayoutX(500);
+			load.setLayoutY(0);
+			search.setLayoutX(350);
+			search.setLayoutY(25);
+			search.setDisable(true);
+			text.setLayoutX(350);
 			text.setLayoutY(50);
-			buttom.getChildren().addAll(text);
+			delete1.setLayoutX(500);
+			delete1.setLayoutY(25);
+			delete1.setDisable(true);
+			delete.setLayoutX(500);
+			delete.setLayoutY(50);
+			buttom.getChildren().addAll(save,load,search,text,delete1,delete);
 			text.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent e) {
@@ -241,6 +264,68 @@ public class Tracker_GUI extends Application {
 					}
 				}
 			});
+			delete.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent e1) {
+					if(e1.getCode().equals(KeyCode.ENTER)){
+						//Server.createCard(text.getCharacters().toString());	
+						deck1.removeCard(delete.getCharacters().toString());
+						System.out.println(" ");
+						for(int abc1 = 0; abc1 < deck1.getSize(); abc1++){
+							System.out.println(deck1.getCard(abc1).Name());
+						}
+						System.out.println(" ");
+						delete.clear();
+					}
+				}
+			});
+			save.setOnAction(new EventHandler<ActionEvent>() {
+
+		        @Override
+		        public void handle(ActionEvent event) {
+		            try {
+						PrintWriter writer = new PrintWriter("deck.txt");
+						for(int i=0;i < deck1.getSize(); i++){
+							writer.println(deck1.getCard(i).Name());
+						}
+						writer.close();
+						System.out.println("");
+						System.out.println("Deck Saved!");
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    });
+			load.setOnAction(new EventHandler<ActionEvent>() {
+
+		        @Override
+		        public void handle(ActionEvent event) {
+		            String cardname = null;
+		        	try {
+						deck1.clearDeck();
+		            	FileReader reader = new FileReader("deck.txt");
+						BufferedReader bReader = new BufferedReader(reader);
+						while((cardname = bReader.readLine()) != null){
+							deck1.addCard(Server.createCard(cardname));
+						}
+						bReader.close();
+		            	System.out.println("");
+						System.out.println("Loaded Deck:");
+						for(int abc1 = 0; abc1 < deck1.getSize(); abc1++){
+							System.out.println(deck1.getCard(abc1).Name());
+						}
+						System.out.println("");
+						
+					} catch (FileNotFoundException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    });
 				
 			
 			

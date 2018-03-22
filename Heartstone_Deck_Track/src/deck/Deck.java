@@ -28,20 +28,23 @@ public class Deck{
 				count++;//Changes card total
 			}
 		}
+		return;
 	}
 	public int getSize() {
 		return count;
 	}
-	public void removeCard(Card card){ //Removes specified card
-		for(int i = 0; i < 30; i++){
-			if(deck[i] == card){
-				for(int j = 0; j + i < 29; j++){ //Shifts cards back a spot 
+	public void removeCard(String name){ //Removes specified card
+		for(int i = 0; i < count; i++){
+			if(deck[i].Name().equals(name)){
+				for(int j = 0; j + i < count; j++){ //Shifts cards back a spot 
 					deck[i+j] = deck[i+j+1]; //to remove selected card
 				}
 				deck[29] = null; //Sets last card to empty
 				count--; //Changes card total
+				return;
 			}
 		}
+		return;
 	}
 	
 	public Card getCard(int num){
@@ -72,6 +75,15 @@ public class Deck{
 			throw new java.lang.Error("Card not in deck");
 		}
 		return loc;
+	}
+	
+	public void clearDeck(){
+		String name;
+		while(count != 0){
+			name = this.deck[0].Name();
+			this.removeCard(name);
+		}
+		return;
 	}
 	
 	public void sortDeckMana(Deck deck){

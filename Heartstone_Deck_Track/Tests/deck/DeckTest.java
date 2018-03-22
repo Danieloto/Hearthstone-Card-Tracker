@@ -16,17 +16,28 @@ public class DeckTest{
 		Card card3 = new Card();
 		Card card4 = new Card();
 		Card card5 = new Card();
+		Card card6 = new Card();
 		card5 = Server.createCard("Ysera");
-		card1.mana = 4;
+		card1.name = "test";
+		card2.name = "test1";
+		card3.name = "test2";
+		card4.name = "test2";
+		card6.name = "test2";
 		assertEquals(deck.count, 0);
 		deck.addCard(card1);
 		assertEquals(deck.count, 1);
 		deck.addCard(card2);
+		//System.out.println(deck.count);
 		deck.addCard(card3);
+		//System.out.println(deck.count);
 		deck.addCard(card4);
+		//System.out.println(deck.count);
 		deck.addCard(card5);
+		//System.out.println(deck.count);
 		assertEquals(deck.count, 5);
-		deck.removeCard(card2);
+		deck.removeCard("test1");
+		assertEquals(deck.count, 4);
+		deck.addCard(card6);
 		assertEquals(deck.count, 4);
 		assertEquals(deck.getCard(card1),card1);
 		assertEquals(deck.getCard(card3),card3);
@@ -34,8 +45,20 @@ public class DeckTest{
 		assertEquals(deck.getCardLocation(card3), 1);
 		deck.addCard(Server.createCard("Ysera"));
 		assertEquals(deck.count, 5);
-		
-		
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.println(deck.getCard(abc1).Name());
+		}
+		deck.removeCard("test");
+		deck.removeCard("Ysera");
+		System.out.println("");
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.println(deck.getCard(abc1).Name());
+		}
+		deck.clearDeck();
+		assertEquals(deck.count, 0);
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.println(deck.getCard(abc1).Name());
+		}
 	}
 	
 	@Test
