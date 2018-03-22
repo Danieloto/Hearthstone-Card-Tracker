@@ -14,13 +14,14 @@ import javax.imageio.ImageIO;
 
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 
 
 @SuppressWarnings("serial")
-public class Server extends JComponent {
+public class Server {
 	
 	/*
 	 * Creates card object from repository using name or ID
@@ -60,7 +61,20 @@ public class Server extends JComponent {
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
 					
-
+					int x2 = 0, y = 188, w = 286, h = 50;
+					Image img = icon.getImage();
+					BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+					dst.getGraphics().drawImage(img, 0, 0, w, h, x, y, x + w, y + h, null);
+					ImageIcon nameBar = new ImageIcon(dst);
+					card.barIcon = nameBar;
+					
+					y = 35;
+					w = 75;
+					dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+					dst.getGraphics().drawImage(img, 0, 0, w, h, x, y, x + w, y + h, null);
+					ImageIcon manaBar = new ImageIcon(dst);
+					card.manaIcon = manaBar;
+					
 				}
 				if(s.equals("cost")) {
 					x++;

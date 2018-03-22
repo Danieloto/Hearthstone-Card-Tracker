@@ -13,7 +13,7 @@ public class Card implements ObservableValue<Number>{
 	private Number opacity;
 	public int health, armor, mana, damage, rarityid;
 	public String rarity, type, desc, name, id;
-	public ImageIcon largeIcon, barIcon;
+	public ImageIcon largeIcon, barIcon, manaIcon;
 	ArrayList<InvalidationListener> invalListener = new ArrayList<InvalidationListener>();
 	ArrayList<ChangeListener> changeListener = new ArrayList<ChangeListener>();
 
@@ -27,6 +27,7 @@ public class Card implements ObservableValue<Number>{
 		rarity = "";
 		type = "";
 		barIcon = null;
+		manaIcon = null;
 		largeIcon = null;
 		desc = "";
 		name = "";
