@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -233,10 +234,18 @@ public class Tracker_GUI extends Application {
 			TextField delete1 = new TextField("Remove Cards to Deck");
 			TextField delete = new TextField("");
 			Button save = new Button("Save Deck");
+			ChoiceBox<String> choice = new ChoiceBox<String>();
+			choice.getItems().addAll("Mana Cost", "Armor", "Health", "Damage", "Rarity");
+			choice.setLayoutX(565);
+			choice.setLayoutY(0);
+			choice.setMaxWidth(85);
 			save.setLayoutX(350);
 			save.setLayoutY(0);
+			Button sort = new Button("Sort");
+			sort.setLayoutX(500);
+			sort.setLayoutY(0);
 			Button load = new Button("Load Deck");
-			load.setLayoutX(500);
+			load.setLayoutX(425);
 			load.setLayoutY(0);
 			search.setLayoutX(350);
 			search.setLayoutY(25);
@@ -248,7 +257,7 @@ public class Tracker_GUI extends Application {
 			delete1.setDisable(true);
 			delete.setLayoutX(500);
 			delete.setLayoutY(50);
-			buttom.getChildren().addAll(save,load,search,text,delete1,delete);
+			buttom.getChildren().addAll(save,load,search,text,delete1,delete,choice,sort);
 			text.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent e) {
@@ -326,7 +335,7 @@ public class Tracker_GUI extends Application {
 					}
 		        }
 		    });
-				
+			sort.setOnAction(e -> getChoice(choice));
 			
 			
 			put_large_image(image_name); // put images into the image array larp and smlp
@@ -490,6 +499,35 @@ public class Tracker_GUI extends Application {
 			small_picture[i] = new Image(("Image/" + image_name[i] + "(s).png").replaceAll("\\s+", ""));
 		}
 
+	}
+	
+	private void getChoice(ChoiceBox<String> choice){
+		String selection = choice.getValue();
+		switch(selection){
+			case "Mana Cost":
+				deck1.sortDeckMana();
+				break;
+			case "Armor":
+				deck1.sortDeckArmor();
+				break;
+			case "Health":
+				deck1.sortDeckHealth();
+				break;
+			case "Rarity":
+				deck1.sortDeckRarity();
+				break;
+			case "Damage":
+				deck1.sortDeckDamage();
+				break;
+			default:
+				break;
+		}
+		System.out.println(" ");
+		for(int abc1 = 0; abc1 < deck1.getSize(); abc1++){
+			System.out.println(deck1.getCard(abc1).Name());
+		}
+		System.out.println(" ");
+		return;
 	}
 
 }

@@ -11,7 +11,7 @@ import javafx.beans.value.ObservableValue;
 
 public class Card implements ObservableValue<Number>{
 	private Number opacity;
-	public int health, armor, mana, damage;
+	public int health, armor, mana, damage, rarityid;
 	public String rarity, type, desc, name, id;
 	public ImageIcon largeIcon, barIcon;
 	ArrayList<InvalidationListener> invalListener = new ArrayList<InvalidationListener>();
@@ -31,6 +31,7 @@ public class Card implements ObservableValue<Number>{
 		desc = "";
 		name = "";
 		id = "";
+		rarityid = 0;
 	}
 	
 	public int Health(){
@@ -115,5 +116,26 @@ public class Card implements ObservableValue<Number>{
 	public void removeListener(ChangeListener listener) {
 		changeListener.remove(listener);
 		
+	}
+	
+	public void setRarityID(){
+		switch(rarity){
+		case "Legendary":
+			rarityid = 4;
+			break;
+		case "Epic":
+			rarityid = 3;
+			break;
+		case "Rare":
+			rarityid = 2;
+			break;
+		case "Common":
+			rarityid = 1;
+			break;
+		case "Free":
+			rarityid = 0;
+			break;
+		}
+		return;
 	}
 }

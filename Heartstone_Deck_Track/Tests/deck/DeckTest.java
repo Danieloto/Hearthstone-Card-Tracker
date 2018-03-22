@@ -59,6 +59,71 @@ public class DeckTest{
 		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
 			System.out.println(deck.getCard(abc1).Name());
 		}
+		
+		card1.name = "f";
+		card2.name = "e";
+		card3.name = "d";
+		card4.name = "c";
+		card5.name = "b";
+		card6.name = "a";
+		deck.addCard(card1);
+		deck.addCard(card2);
+		deck.addCard(card3);
+		deck.addCard(card4);
+		deck.addCard(card5);
+		deck.addCard(card6);
+		System.out.println("Original: Should be fedcba");
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.print(deck.getCard(abc1).Name());
+		}
+		card1.mana = 1;
+		card2.mana = 2;
+		card3.mana = 3;
+		card4.mana = 4;
+		card5.mana = 5;
+		card6.mana = 6;
+		deck.sortDeckMana();
+		System.out.println("");
+		System.out.println("Mana: Should be fedcba");
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.print(deck.getCard(abc1).Name());
+		}
+		card1.armor = 6;
+		card2.armor = 5;
+		card3.armor = 4;
+		card4.armor = 3;
+		card5.armor = 2;
+		card6.armor = 1;
+		deck.sortDeckArmor();
+		System.out.println("");
+		System.out.println("Armor: Should be abcdef");
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.print(deck.getCard(abc1).Name());
+		}
+		card1.damage = 1;
+		card2.damage = 2;
+		card3.damage = 3;
+		card4.damage = 4;
+		card5.damage = 5;
+		card6.damage = 6;
+		deck.sortDeckDamage();
+		System.out.println("");
+		System.out.println("Damage: Should be fedcba");
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.print(deck.getCard(abc1).Name());
+		}
+		card1.rarity = "Legendary";
+		card2.rarity = "Epic";
+		card3.rarity = "Rare";
+		card4.rarity = "Free";
+		card5.rarity = "Common";
+		card6.rarity = "Free";
+		deck.sortDeckRarity();
+		System.out.println("");
+		System.out.println("Rarity: Should be fedbca or fedbac");
+		for(int abc1 = 0; abc1 < deck.getSize(); abc1++){
+			System.out.print(deck.getCard(abc1).Name());
+		}
 	}
 	
 	@Test
