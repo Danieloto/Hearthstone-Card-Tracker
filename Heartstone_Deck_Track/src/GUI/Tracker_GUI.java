@@ -118,6 +118,9 @@ public class Tracker_GUI extends Application {
 					outPut.clear();
 					friendlyCards.clear();
 					opponentCards.clear();
+					for(int i=0; i<30;i++) {
+						lables[i].setOpacity(1);
+					}
 				}
 
 			}
