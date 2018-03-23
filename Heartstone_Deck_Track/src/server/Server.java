@@ -140,8 +140,12 @@ public class Server {
 					}
 					card.desc = s;
 				}
+				if(s.equals("name")) {
+					x++;
+					s=bodySplit[x];
+					card.name=s;
+				}
 			}
-			card.name=name;
 			return card;
 		}
 		catch(UnirestException e) { 
