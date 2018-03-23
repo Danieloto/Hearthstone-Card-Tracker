@@ -67,6 +67,7 @@ public class Tracker_GUI extends Application {
 	private static ArrayList<String> outPut = new ArrayList<String>();
 	public static Deck friendlyDeck;
 	private static Log_Reader logReader = new Log_Reader();
+	VBox vb = new VBox();
 
 	/*
 	 * inner class for threading
@@ -228,9 +229,11 @@ public class Tracker_GUI extends Application {
 			list.setLayoutY(100);
 			buttom.getChildren().add(list);
 
-			VBox vb = new VBox();
+			
 			list.setContent(vb);
 			String[] image_name = logReader.createTestNames(0);
+			
+			updateLabel(image_name);
 			
 			
 			TextField text = new TextField("");
@@ -249,6 +252,9 @@ public class Tracker_GUI extends Application {
 			sort.setLayoutX(500);
 			sort.setLayoutY(0);
 			Button load = new Button("Load Deck");
+			Button swap = new Button("Change Decks");
+			swap.setLayoutX(100);
+			swap.setLayoutY(0);
 			load.setLayoutX(425);
 			load.setLayoutY(0);
 			search.setLayoutX(350);
@@ -261,7 +267,7 @@ public class Tracker_GUI extends Application {
 			delete1.setDisable(true);
 			delete.setLayoutX(500);
 			delete.setLayoutY(50);
-			buttom.getChildren().addAll(save,load,search,text,delete1,delete,choice,sort);
+			buttom.getChildren().addAll(save,load,search,text,delete1,delete,choice,sort,swap);
 			text.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent e) {
@@ -340,22 +346,10 @@ public class Tracker_GUI extends Application {
 		        }
 		    });
 			sort.setOnAction(e -> getChoice(choice));
+			swap.setOnAction(e -> setNewDeck());
 			
 			
-			put_large_image(image_name); // put images into the image array larp and smlp
-			put_small_image(image_name);
-
-			for (int i = 0; i < 30; i++) {
-				lables[i] = new Label();
-
-				lables[i].setPrefSize(286 + 30, 50);
-
-				BackgroundImage BackImage = new BackgroundImage((small_picture[i]), BackgroundRepeat.REPEAT,
-						BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-				lables[i].setBackground(new Background(BackImage));
-				vb.getChildren().add(lables[i]);
-
-			}
+			
 			//System.out.println(friendlyCards.get(0));
 			//System.out.println(lables[0].getText());
 //			for(int i=0;i<friendlyDeck.getSize();i++) {
@@ -496,7 +490,7 @@ public class Tracker_GUI extends Application {
 			
 			Card crd = friendlyDeck.getCard(i);
 			if(crd.barIcon != null) {
-				java.awt.Image img = Server.createCard(image_name[i]).largeIcon.getImage();
+				java.awt.Image img = crd.largeIcon.getImage();
 				BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				Graphics2D bGr = bimage.createGraphics();
 			    bGr.drawImage(img, 0, 0, null);
@@ -517,7 +511,7 @@ public class Tracker_GUI extends Application {
 			
 			Card crd = friendlyDeck.getCard(i);
 			if(crd.barIcon != null) {
-				java.awt.Image img = Server.createCard(image_name[i]).barIcon.getImage();
+				java.awt.Image img = crd.barIcon.getImage();
 				BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				Graphics2D bGr = bimage.createGraphics();
 			    bGr.drawImage(img, 0, 0, null);
@@ -558,6 +552,56 @@ public class Tracker_GUI extends Application {
 		}
 		System.out.println(" ");
 		return;
+	}
+	
+	private void setNewDeck(){
+		if(deck1.getSize() == 30){
+			friendlyDeck.clearDeck();
+			for(int abc1 = 0; abc1 < deck1.getSize(); abc1++){
+				friendlyDeck.addCard(deck1.getCard(abc1));
+			}
+			updateLabel();
+			for(int abc1 = 0; abc1 < friendlyDeck.getSize(); abc1++){
+				System.out.println(friendlyDeck.getCard(abc1).Name());
+			}
+			System.out.println("");
+		}
+		return;
+	}
+	
+	private void updateLabel(){
+		String[] imageNames = new String[30];
+		for(int i = 0; i < friendlyDeck.getSize(); i++){
+			imageNames[i] = friendlyDeck.getCard(i).Name();
+		}
+		put_large_image(imageNames); 
+		put_small_image(imageNames);
+
+		for (int i = 0; i < 30; i++) {
+
+			lables[i].setPrefSize(286 + 30, 50);
+
+			BackgroundImage BackImage = new BackgroundImage((small_picture[i]), BackgroundRepeat.REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+			lables[i].setBackground(new Background(BackImage));
+
+		}
+	}
+	private void updateLabel(String[] imageNames){
+		put_large_image(imageNames); 
+		put_small_image(imageNames);
+
+		for (int i = 0; i < 30; i++) {
+			lables[i] = new Label();
+
+			lables[i].setPrefSize(286 + 30, 50);
+
+			BackgroundImage BackImage = new BackgroundImage((small_picture[i]), BackgroundRepeat.REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+			lables[i].setBackground(new Background(BackImage));
+			vb.getChildren().add(lables[i]);
+
+		}
 	}
 
 }

@@ -36,8 +36,13 @@ public class Deck{
 	public void removeCard(String name){ //Removes specified card
 		for(int i = 0; i < count; i++){
 			if(deck[i].Name().equals(name)){
-				for(int j = 0; j + i < count; j++){ //Shifts cards back a spot 
-					deck[i+j] = deck[i+j+1]; //to remove selected card
+				if(count == 30){
+					deck[29] = null;
+				}
+				else{
+					for(int j = 0; j + i < count; j++){ //Shifts cards back a spot 
+						deck[i+j] = deck[i+j+1]; //to remove selected card
+					}
 				}
 				deck[29] = null; //Sets last card to empty
 				count--; //Changes card total
@@ -80,8 +85,8 @@ public class Deck{
 	public void clearDeck(){
 		String name;
 		while(count != 0){
-			name = this.deck[0].Name();
-			this.removeCard(name);
+			name = deck[0].Name();
+			removeCard(name);
 		}
 		return;
 	}
