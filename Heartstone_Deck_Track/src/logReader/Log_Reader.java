@@ -1,5 +1,8 @@
 package logReader;
 
+import deck.Card;
+import server.Server;
+
 public class Log_Reader {
 
 	public Log_Reader() {
@@ -30,55 +33,57 @@ public class Log_Reader {
 
 	public String idToNames(String id) {
 		String name = "";
-		switch (id) {
-		case "EX1_277":
-			name = "Arcane Missiles";
-			break;
-		case "CS2_168":
-			name = "Murloc Raider";
-			break;
-		case "CS2_025":
-			name = "Arcane Explosion";
-			break;
-		case "CS2_172":
-			name = "Bloodfen Raptor";
-			break;
-		case "EX1_015":
-			name = "Novice Engineer";
-			break;
-		case "CS2_120":
-			name = "River Crocolisk";
-			break;
-		case "CS2_023":
-			name = "Arcane Intellect";
-			break;
-		case "CS2_122":
-			name = "Raid Leader";
-			break;
-		case "CS2_124":
-			name = "Wolfrider";
-			break;
-		case "CS2_029":
-			name = "Fireball";
-			break;
-		case "CS2_119":
-			name = "Oasis Snapjaw";
-			break;
-		case "CS2_022":
-			name = "Polymorph";
-			break;
-		case "CS2_179":
-			name = "Sen'jin Shieldmasta";
-			break;
-		case "EX1_593":
-			name = "Nightblade";
-			break;
-		case "CS2_200":
-			name = "Boulderfist Ogre";
-			break;
-
-		}
-
+//		switch (id) {
+//		case "EX1_277":
+//			name = "Arcane Missiles";
+//			break;
+//		case "CS2_168":
+//			name = "Murloc Raider";
+//			break;
+//		case "CS2_025":
+//			name = "Arcane Explosion";
+//			break;
+//		case "CS2_172":
+//			name = "Bloodfen Raptor";
+//			break;
+//		case "EX1_015":
+//			name = "Novice Engineer";
+//			break;
+//		case "CS2_120":
+//			name = "River Crocolisk";
+//			break;
+//		case "CS2_023":
+//			name = "Arcane Intellect";
+//			break;
+//		case "CS2_122":
+//			name = "Raid Leader";
+//			break;
+//		case "CS2_124":
+//			name = "Wolfrider";
+//			break;
+//		case "CS2_029":
+//			name = "Fireball";
+//			break;
+//		case "CS2_119":
+//			name = "Oasis Snapjaw";
+//			break;
+//		case "CS2_022":
+//			name = "Polymorph";
+//			break;
+//		case "CS2_179":
+//			name = "Sen'jin Shieldmasta";
+//			break;
+//		case "EX1_593":
+//			name = "Nightblade";
+//			break;
+//		case "CS2_200":
+//			name = "Boulderfist Ogre";
+//			break;
+//
+//		}
+		Server server = new Server();
+		Card card = server.createCard(id);
+		name=card.name;
 		return name;
 	}
 	public String[] createTestIDs(int deckTestNumber){

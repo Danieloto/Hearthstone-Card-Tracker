@@ -89,7 +89,7 @@ public class Tracker_GUI extends Application {
 			if (logReader.lineContainsCards(line)) {
 				String cardName;
 
-				if (logReader.isFriendlyCards(line)) {
+				if (logReader.isFriendlyCards(line)) {					
 					friendlyCards.add(logReader.idToNames(line.substring(line.lastIndexOf('=') + 1)));
 					cardName = friendlyCards.get(friendlyCards.size() - 1);
 					outPut.add(cardName);
