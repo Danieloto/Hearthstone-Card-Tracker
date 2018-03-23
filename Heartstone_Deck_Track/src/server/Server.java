@@ -105,6 +105,17 @@ public class Server {
 				if(s.equals("type")) {
 					x++;
 					s = bodySplit[x];
+					if(s.equals("Enchantment")) {
+						if(response.getBody().getArray().length() > 1) {
+							body = response.getBody().getArray().get(1).toString();
+							body = body.replaceAll("\"", "");
+							body = body.replaceAll("\\{", "");
+							body = body.replaceAll("\\}", "");
+							bodySplit = body.split(":|,");
+							x = -1;
+							continue;
+						}
+					}
 					card.type = s;
 				}
 				if(s.equals("attack")) {
