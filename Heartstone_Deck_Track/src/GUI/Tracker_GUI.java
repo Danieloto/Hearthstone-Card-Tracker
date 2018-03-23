@@ -114,13 +114,11 @@ public class Tracker_GUI extends Application {
 			 * Checks to see if a new game has started
 			 */
 			else if (logReader.isNewGame(line)) {
-				if (!outPut.isEmpty()) {
-					outPut.clear();
-					friendlyCards.clear();
-					opponentCards.clear();
-					for(int i=0; i<30;i++) {
-						lables[i].setOpacity(1);
-					}
+				outPut.clear();
+				friendlyCards.clear();
+				opponentCards.clear();
+				for(int i=0; i<30;i++) {
+					lables[i].setOpacity(1);
 				}
 
 			}
