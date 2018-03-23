@@ -186,7 +186,7 @@ public class Tracker_GUI extends Application {
 						line = br.readLine();
 						
 						if (br.readLine() != null) {
-							Thread.sleep(1000);
+							Thread.sleep(3000);
 							break;
 						}
 					}
@@ -530,28 +530,29 @@ public class Tracker_GUI extends Application {
 		String selection = choice.getValue();
 		switch(selection){
 			case "Mana Cost":
-				deck1.sortDeckMana();
+				friendlyDeck.sortDeckMana();
 				break;
 			case "Armor":
-				deck1.sortDeckArmor();
+				friendlyDeck.sortDeckArmor();
 				break;
 			case "Health":
-				deck1.sortDeckHealth();
+				friendlyDeck.sortDeckHealth();
 				break;
 			case "Rarity":
-				deck1.sortDeckRarity();
+				friendlyDeck.sortDeckRarity();
 				break;
 			case "Damage":
-				deck1.sortDeckDamage();
+				friendlyDeck.sortDeckDamage();
 				break;
 			default:
 				break;
 		}
 		System.out.println(" ");
-		for(int abc1 = 0; abc1 < deck1.getSize(); abc1++){
-			System.out.println(deck1.getCard(abc1).Name());
+		for(int abc1 = 0; abc1 < friendlyDeck.getSize(); abc1++){
+			System.out.println(friendlyDeck.getCard(abc1).Name());
 		}
 		System.out.println(" ");
+		updateLabel();
 		return;
 	}
 	
