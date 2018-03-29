@@ -38,8 +38,8 @@ public class Server {
 		Card card = new Card();
 	
 		try {
-			
-			String decodeName = URLDecoder.decode(name, "UTF-8");
+			String decodeName=name;
+			//String decodeName = URLDecoder.decode(name, "UTF-8");
 			
 			//get info from repo
 			HttpResponse<JsonNode> response = Unirest.get("https://omgvamp-hearthstone-v1.p.mashape.com/cards/" + decodeName).
@@ -156,9 +156,6 @@ public class Server {
 		catch(MalformedURLException e) { 
 			//downloading image fails
 			System.out.print(e);
-			return null;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
