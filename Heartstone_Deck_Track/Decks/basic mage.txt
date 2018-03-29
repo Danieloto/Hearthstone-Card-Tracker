@@ -6,8 +6,64 @@ Water Elemental
 Water Elemental
 Flamesrike
 Flamesrike
-Acidic Swamp OOze
-Acidic Swamp OOze
+Acidic Swamp Ooze
+Acidic Swamp Ooze
+Bloodfen Raptor
+Bloodfen Raptor
+Ironfur Grizzly
+Ironfur Grizzly
+Shattered Sun Cleric
+Shattered Sun Cleric
+Chillwind Yeti
+Chillwind Yeti
+Gnomish Inventor
+Gnomish Inventor
+Sen'jin Shieldmasta
+Sen'jin Shieldmasta
+Boulderfist Ogre
+Boulderfist Ogre
+Frostbolt
+Frostbolt
+Arcane Intellect
+Arcane Intellect
+Fireball
+FireballArcane Missiles
+Arcane Missiles
+Polymorph
+Polymorph
+Water Elemental
+Water Elemental
+Flamesrike
+Flamesrike
+Bloodfen Raptor
+Bloodfen Raptor
+Ironfur Grizzly
+Ironfur Grizzly
+Shattered Sun Cleric
+Shattered Sun Cleric
+Chillwind Yeti
+Chillwind Yeti
+Gnomish Inventor
+Gnomish Inventor
+Sen'jin Shieldmasta
+Sen'jin Shieldmasta
+Boulderfist Ogre
+Boulderfist Ogre
+Frostbolt
+Frostbolt
+Arcane Intellect
+Arcane Intellect
+Fireball
+Acidic Swamp Ooze
+Acidic Swamp Ooze
+Arcane Missiles
+Arcane Missiles
+Polymorph
+Polymorph
+Water Elemental
+Water Elemental
+Flamesrike
+Flamesrike
 Bloodfen Raptor
 Bloodfen Raptor
 Ironfur Grizzly
@@ -28,3 +84,5 @@ Arcane Intellect
 Arcane Intellect
 Fireball
 Fireball
+Acidic Swamp Ooze
+Acidic Swamp Ooze
