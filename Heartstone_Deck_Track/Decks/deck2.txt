@@ -1,18 +1,17 @@
-<<<<<<< HEAD
-Arcane
-=======
-Arcane Missiles
-Arcane Missiles
+Anomalus
+Anomalus
+Air Elemental
+Air Elemental
+Nightblade
+Nightblade
+Boulderfist Ogre
+Boulderfist Ogre
 Murloc Raider
 Murloc Raider
 Arcane Explosion
 Arcane Explosion
 Bloodfen Raptor
 Bloodfen Raptor
-Novice Engineer
-Novice Engineer
-River Crocolisk
-River Crocolisk
 Arcane Intellect
 Arcane Intellect
 Raid Leader
@@ -27,8 +26,5 @@ Polymorph
 Polymorph
 Sen'jin Shieldmasta
 Sen'jin Shieldmasta
-Nightblade
-Nightblade
-Boulderfist Ogre
-Boulderfist Ogre
->>>>>>> 892121decbc2ee58cdbd84b8db243c557d8e7fb8
+Chillwind Yeti
+Chillwind Yeti

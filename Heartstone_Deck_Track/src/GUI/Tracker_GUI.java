@@ -970,5 +970,20 @@ public class Tracker_GUI extends Application {
 
 		}
 	}
+	
+	private int drawProbability(Card selectedCard) {
+		int total = friendlyDeck.getSize();
+		int count = 0;
+		
+		for(int i = 0; i < total; i++) {
+			Card crd = friendlyDeck.getCard(i);
+			
+			if(selectedCard.id == crd.id)
+				count++;
+		}
+		
+		return count / total;
+		
+	}
 
 }
