@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -237,53 +238,82 @@ public class Tracker_GUI extends Application {
 			updateLabel(image_name);
 			
 			
-			TextField text = new TextField("");
-			TextField search = new TextField("Add Cards to Deck");
-			TextField delete1 = new TextField("Remove Cards to Deck");
-			TextField delete = new TextField("");
-			Button save = new Button("Save Deck");
+			TextField search = new TextField(""); //Creates Search text field to add cards to deck
+			search.setPromptText("Add Cards to Deck");
+			search.setLayoutX(350);
+			search.setLayoutY(25);
+			
+			TextField delete = new TextField(""); //Creates delete text field to delete cards from deck
+			delete.setLayoutX(500);
+			delete.setLayoutY(25);
+			delete.setPromptText("Remove Cards from Deck");
+			
+			
+			Button save = new Button("Save Deck"); //Creates save button to save the current deck to file
+			save.setLayoutX(100);
+			save.setLayoutY(0);
+			
+			TextField addDeck = new TextField(""); //Creates addDeck text field to add deck to deck list
+			addDeck.setLayoutX(350);
+			addDeck.setLayoutY(0);
+			addDeck.setPromptText("Add a new Deck");
+			
 			ChoiceBox<String> choice = new ChoiceBox<String>();
 			choice.getItems().addAll("Mana Cost", "Armor", "Health", "Damage", "Rarity");
 			choice.setLayoutX(565);
 			choice.setLayoutY(0);
 			choice.setMaxWidth(85);
-			save.setLayoutX(350);
-			save.setLayoutY(0);
+			choice.setValue("Mana Cost");
+			
+			ChoiceBox<String> deckList = new ChoiceBox<String>();
+			FileReader deckListReader = new FileReader("decklist.txt");
+			BufferedReader dReader = new BufferedReader(deckListReader);
+			String deckname;
+			int count = 0;
+			while((deckname = dReader.readLine()) != null){
+				deckList.getItems().add(deckname);
+				if(count == 0){
+					deckList.setValue(deckname);
+					count++;
+				}
+			}
+			dReader.close();
+			deckList.setLayoutX(250);
+			deckList.setLayoutY(0);
+			deckList.setMaxWidth(100);
+			
 			Button sort = new Button("Sort");
 			sort.setLayoutX(500);
 			sort.setLayoutY(0);
+			
 			Button load = new Button("Load Deck");
-			Button swap = new Button("Change Decks");
-			swap.setLayoutX(100);
-			swap.setLayoutY(0);
-			load.setLayoutX(425);
+			load.setLayoutX(175);
 			load.setLayoutY(0);
-			search.setLayoutX(350);
-			search.setLayoutY(25);
-			search.setDisable(true);
-			text.setLayoutX(350);
-			text.setLayoutY(50);
-			delete1.setLayoutX(500);
-			delete1.setLayoutY(25);
-			delete1.setDisable(true);
-			delete.setLayoutX(500);
-			delete.setLayoutY(50);
-			buttom.getChildren().addAll(save,load,search,text,delete1,delete,choice,sort,swap);
-			text.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+			
+			
+			Button swap = new Button("Change Decks");
+			swap.setLayoutX(0);
+			swap.setLayoutY(0);
+			
+			buttom.getChildren().addAll(save,load,search,delete,choice,sort,swap,addDeck,deckList);
+			
+			
+			search.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent e) {
 					if(e.getCode().equals(KeyCode.ENTER)){
 						//Server.createCard(text.getCharacters().toString());	
-						deck1.addCard(Server.createCard(text.getCharacters().toString()));
+						deck1.addCard(Server.createCard(search.getCharacters().toString()));
 						System.out.println(" ");
 						for(int abc = 0; abc < deck1.getSize(); abc++){
 							System.out.println(deck1.getCard(abc).Name());
 						}
 						System.out.println(" ");
-						text.clear();
+						search.clear();
 					}
 				}
 			});
+			
 			delete.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent e1) {
@@ -299,24 +329,31 @@ public class Tracker_GUI extends Application {
 					}
 				}
 			});
+			
 			save.setOnAction(new EventHandler<ActionEvent>() {
 
 		        @Override
 		        public void handle(ActionEvent event) {
-		            try {
-						PrintWriter writer = new PrintWriter("deck.txt");
-						for(int i=0;i < deck1.getSize(); i++){
-							writer.println(deck1.getCard(i).Name());
-						}
-						writer.close();
-						System.out.println("");
-						System.out.println("Deck Saved!");
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+		           if(deck1.getSize() == 30){
+		        	   try {
+		        		   PrintWriter writer = new PrintWriter(deckList.getValue() + ".txt");
+		        		   for(int i=0;i < deck1.getSize(); i++){
+		        			   writer.println(deck1.getCard(i).Name());
+		        		   }
+		        		   writer.close();
+		        		   System.out.println("");
+		        		   System.out.println("Deck Saved!");
+		        	   } catch (FileNotFoundException e) {
+		        		   // TODO Auto-generated catch block
+		        		   e.printStackTrace();
+		        	   }
+		           }
+		           else{
+		        	   System.out.println("You must have a full deck to save!");
+		           }
 		        }
 		    });
+			
 			load.setOnAction(new EventHandler<ActionEvent>() {
 
 		        @Override
@@ -324,7 +361,7 @@ public class Tracker_GUI extends Application {
 		            String cardname = null;
 		        	try {
 						deck1.clearDeck();
-		            	FileReader reader = new FileReader("deck.txt");
+		            	FileReader reader = new FileReader(deckList.getValue() + ".txt");
 						BufferedReader bReader = new BufferedReader(reader);
 						while((cardname = bReader.readLine()) != null){
 							deck1.addCard(Server.createCard(cardname));
@@ -346,8 +383,31 @@ public class Tracker_GUI extends Application {
 					}
 		        }
 		    });
+			
 			sort.setOnAction(e -> getChoice(choice));
+		
 			swap.setOnAction(e -> setNewDeck());
+			
+			addDeck.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent e1) {
+					PrintWriter listwriter;
+					if(e1.getCode().equals(KeyCode.ENTER)){
+						try {
+							listwriter = new PrintWriter(new FileWriter("decklist.txt",true));
+							listwriter.println(addDeck.getCharacters().toString());
+							listwriter.close();
+							deckList.getItems().add(addDeck.getCharacters().toString());
+							System.out.println("");
+							System.out.println("Deck Added!");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						addDeck.clear();
+					}
+				}
+			});
 			
 			
 			
