@@ -2,6 +2,8 @@ package deck;
 
 import javax.swing.ImageIcon;
 
+import javafx.scene.image.Image;
+
 public class Deck{
 
 	private Card[] deck; //object array of cards to make up deck.
