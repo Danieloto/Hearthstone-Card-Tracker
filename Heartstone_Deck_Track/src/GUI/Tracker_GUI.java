@@ -503,7 +503,76 @@ public class Tracker_GUI extends Application {
 
 			tab.setPrefWidth(286 + 50);
 
+<<<<<<< HEAD
+		        @Override
+		        public void handle(ActionEvent event) {
+		            String cardname = null;
+		        	try {
+						deck1.clearDeck();
+		            	FileReader reader = new FileReader(deckList.getValue() + ".txt");
+						BufferedReader bReader = new BufferedReader(reader);
+						while((cardname = bReader.readLine()) != null){
+							deck1.addCard(Server.createCard(cardname));
+						}
+						bReader.close();
+		            	System.out.println("");
+						System.out.println("Loaded Deck:");
+						for(int abc1 = 0; abc1 < deck1.getSize(); abc1++){
+							System.out.println(deck1.getCard(abc1).Name());
+						}
+						System.out.println("");
+						
+					} catch (FileNotFoundException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    });
+			
+			sort.setOnAction(e -> getChoice(choice));
+		
+			swap.setOnAction(e -> setNewDeck());
+			
+			addDeck.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent e1) {
+					PrintWriter listwriter;
+					if(e1.getCode().equals(KeyCode.ENTER)){
+						try {
+							listwriter = new PrintWriter(new FileWriter("decklist.txt",true));
+							listwriter.println(addDeck.getCharacters().toString());
+							listwriter.close();
+							deckList.getItems().add(addDeck.getCharacters().toString());
+							PrintWriter newWriter = new PrintWriter(addDeck.getCharacters().toString() + ".txt");
+							newWriter.close();
+							System.out.println("");
+							System.out.println("Deck Added!");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						addDeck.clear();
+					}
+				}
+			});
+			
+			
+			
+			//System.out.println(friendlyCards.get(0));
+			//System.out.println(lables[0].getText());
+//			for(int i=0;i<friendlyDeck.getSize();i++) {
+//				lables[i].opacityProperty().bind(friendlyDeck.getCard(i));
+//			}
+			//lables[0].setOpacity(0);
+			
+
+			
+=======
 			tab.setLayoutX(0);
+>>>>>>> 1ec05427a1972cfb7c382aac338609d7d26117c3
 
 			tab.setLayoutY(90);
 

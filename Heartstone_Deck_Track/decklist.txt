@@ -1,3 +1,8 @@
 TJ 319 Mage
 Dummy
+<<<<<<< HEAD
+Rouge
+TestingTest
+=======
 RougeNewDeck
+>>>>>>> 1ec05427a1972cfb7c382aac338609d7d26117c3
