@@ -398,6 +398,8 @@ public class Tracker_GUI extends Application {
 							listwriter.println(addDeck.getCharacters().toString());
 							listwriter.close();
 							deckList.getItems().add(addDeck.getCharacters().toString());
+							PrintWriter newWriter = new PrintWriter(addDeck.getCharacters().toString() + ".txt");
+							newWriter.close();
 							System.out.println("");
 							System.out.println("Deck Added!");
 						} catch (IOException e) {
