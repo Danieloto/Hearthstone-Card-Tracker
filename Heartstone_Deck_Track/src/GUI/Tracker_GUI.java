@@ -76,7 +76,7 @@ public class Tracker_GUI extends Application {
 	public static Deck deck1;
 	private static int count;
 	private static boolean stillOn = true;
-	private static String pcPath="/Decks/";
+	private static String pcPath="Decks/";
 	private static String macPath="/Users/chenjunjie/repository/A8/Heartstone_Deck_Track/Decks/";
 	private static String macLogAddress = "/Applications/Hearthstone/Logs/Power.log";
 	private static String pcLogAddress = "C:/Program Files (x86)/Hearthstone/Logs/Power.log";
@@ -463,7 +463,7 @@ public class Tracker_GUI extends Application {
 					try {
 						String fileName;
 						if (System.getProperty("os.name").toLowerCase().contains("win")) {
-							fileName = "/Decks/" + name+ ".txt";
+							fileName = "Decks/" + name+ ".txt";
 						}else {
 							
 							fileName = "/Users/chenjunjie/repository/A8/Heartstone_Deck_Track/Decks/"+name+ ".txt";
@@ -519,7 +519,7 @@ public class Tracker_GUI extends Application {
 								CurrentDeck.setText(deckName[Integer.parseInt(temp.substring(42))].getText());
 								String PathName;
 								if (System.getProperty("os.name").toLowerCase().contains("win")) {
-									PathName = "/Decks/" + deckName[Integer.parseInt(temp.substring(42))].getText()
+									PathName = "Decks/" + deckName[Integer.parseInt(temp.substring(42))].getText()
 											+ ".txt";
 								}else {
 									
@@ -692,7 +692,7 @@ public class Tracker_GUI extends Application {
 								String PathName;
 								
 								if (System.getProperty("os.name").toLowerCase().contains("win")) {
-									PathName = "/Decks/" + deckName[Integer.parseInt(temp.substring(42))].getText()
+									PathName = "Decks/" + deckName[Integer.parseInt(temp.substring(42))].getText()
 											+ ".txt";
 								}else {
 									
