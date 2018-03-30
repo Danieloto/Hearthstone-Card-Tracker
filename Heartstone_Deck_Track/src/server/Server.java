@@ -35,6 +35,10 @@ public class Server {
 	 */
 	public static Card createCard(String name) {
 	
+		Boolean excep = false;
+		if(name.equals("Water Elemental"))
+			excep = true;
+		
 		Card card = new Card();
 	
 		try {
@@ -54,7 +58,22 @@ public class Server {
 			//split by delimiters. ':' split object and value, and ',' split different objects
 			String[] bodySplit = body.split(":|,");
 			
+			int cardN = 0;
+			
 			for(int x = 0; x < bodySplit.length; x++) {
+				
+				if(excep){
+					excep = false;
+					if(cardN < (response.getBody().getArray().length() - 1)) {
+						body = response.getBody().getArray().get(cardN++).toString();
+						body = body.replaceAll("\"", "");
+						body = body.replaceAll("\\{", "");
+						body = body.replaceAll("\\}", "");
+						bodySplit = body.split(":|,");
+						x = -1;
+						continue;
+					}
+				}
 				
 				String s = bodySplit[x];
 			
@@ -67,6 +86,18 @@ public class Server {
 					URL url = new URL(imgLoc);
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
+					
+					if(icon.getIconWidth() < 0){
+						if(cardN < (response.getBody().getArray().length() - 1)) {
+							body = response.getBody().getArray().get(cardN++).toString();
+							body = body.replaceAll("\"", "");
+							body = body.replaceAll("\\{", "");
+							body = body.replaceAll("\\}", "");
+							bodySplit = body.split(":|,");
+							x = -1;
+							continue;
+						}
+					}
 					
 					int x2 = 20, y = 235, w = 256, h = 50;
 					Image img = icon.getImage();
@@ -106,8 +137,8 @@ public class Server {
 					x++;
 					s = bodySplit[x];
 					if(s.equals("Enchantment")) {
-						if(response.getBody().getArray().length() > 1) {
-							body = response.getBody().getArray().get(1).toString();
+						if(cardN < (response.getBody().getArray().length() - 1)) {
+							body = response.getBody().getArray().get(cardN++).toString();
 							body = body.replaceAll("\"", "");
 							body = body.replaceAll("\\{", "");
 							body = body.replaceAll("\\}", "");
