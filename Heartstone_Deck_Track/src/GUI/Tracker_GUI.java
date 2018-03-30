@@ -218,7 +218,7 @@ public class Tracker_GUI extends Application {
 
 									friendlyDeck.getCard(i).setValue(.25);
 									lables[i].setOpacity(.25);
-									// remainingCards--;
+									 remainingCards--;
 									// System.out.println(remainingCards);
 									break;
 								}
@@ -971,18 +971,19 @@ public class Tracker_GUI extends Application {
 		}
 	}
 	
-	private int drawProbability(Card selectedCard) {
-		int total = friendlyDeck.getSize();
-		int count = 0;
+	private String drawProbability(Card selectedCard) {
+		double count = 0.0;
+		String result = "";
+		double totalCards = (double)remainingCards;
 		
-		for(int i = 0; i < total; i++) {
+		for(int i = 0; i < remainingCards; i++) {
 			Card crd = friendlyDeck.getCard(i);
 			
-			if(selectedCard.id == crd.id)
+			if(selectedCard.name == crd.name)
 				count++;
 		}
-		
-		return count / total;
+		result = "" + Math.round((count / totalCards) * 100.0) + "%";
+		return result;
 		
 	}
 
