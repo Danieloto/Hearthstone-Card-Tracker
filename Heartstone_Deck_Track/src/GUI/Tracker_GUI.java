@@ -64,13 +64,18 @@ import javafx.embed.swing.SwingFXUtils;
 
 @SuppressWarnings("restriction")
 public class Tracker_GUI extends Application {
-
+	
+	private static final int OPPCARDCOUNTMAX=31;
+	private static final int FRIENDLYCARDCOUNTMAX=30;
 	Background black = new Background(new BackgroundFill(Paint.valueOf("#000000"), CornerRadii.EMPTY, Insets.EMPTY));// red
 	Background white = new Background(new BackgroundFill(Paint.valueOf("#FFFFFF"), CornerRadii.EMPTY, Insets.EMPTY));// ye
 	LargePic lp = new LargePic();
-	Image[] large_picture = new Image[30];
-	Image[] small_picture = new Image[30];
-	static Label[] lables;
+	static Image[] large_picture_friendly = new Image[FRIENDLYCARDCOUNTMAX];
+	static Image[] small_picture_friendly = new Image[FRIENDLYCARDCOUNTMAX];
+	static Image[] large_picture_opp = new Image[OPPCARDCOUNTMAX];
+	static Image[] small_picture_opp = new Image[OPPCARDCOUNTMAX];
+	static Label[] lablesMyDeck;
+	static Label[] lablesOppDeck;
 	Scene scene;
 	AnchorPane buttom;
 	public static Deck deck1;
@@ -84,12 +89,14 @@ public class Tracker_GUI extends Application {
 	private static ArrayList<String> opponentCards = new ArrayList<String>();
 	private static ArrayList<String> outPut = new ArrayList<String>();
 	public static Deck friendlyDeck;
+	public static Deck oppDeck;
 	private static Log_Reader logReader = new Log_Reader();
-	VBox vb = new VBox();
+	static VBox vbYourCards = new VBox();
+	static VBox vbOppCards = new VBox();
 	FileWriter resultFile;
 	PrintWriter writer;
 	Button[] deckName;
-	Server server = new Server();
+	static Server server = new Server();
 
 	public static Label twoCardChance = new Label("[2]: 6.6%");
 	static int remainingCards = 0;
@@ -141,14 +148,17 @@ public class Tracker_GUI extends Application {
 			 * Checks to see if a new game has started
 			 */
 			else if (logReader.isNewGame(line)) {
-				remainingCards = 30;
+				remainingCards = FRIENDLYCARDCOUNTMAX;
 				outPut.clear();
 				friendlyCards.clear();
 				opponentCards.clear();
-				for (int i = 0; i < 30; i++) {
-					lables[i].setOpacity(1);
-
+				oppDeck.clearDeck();
+				for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
+					lablesMyDeck[i].setOpacity(1);
+					lablesOppDeck[i].setBackground(null);
+					
 				}
+				lablesOppDeck[OPPCARDCOUNTMAX-1].setBackground(null);
 				/*
 				 * 
 				 * 
@@ -169,13 +179,13 @@ public class Tracker_GUI extends Application {
 				beginIndex = line.indexOf("card") + 7;
 				endIndex = line.indexOf("card") + 14;
 				String cardName = temp.idToNames(line.substring(beginIndex, endIndex));
-				for (int i = 0; i < 30; i++) {
+				for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 					String cardNameInDeck = friendlyDeck.getCard(i).name;
 					double testNumber = friendlyDeck.getCard(i).getValue().doubleValue();
 					if (cardName.equals(cardNameInDeck) && testNumber == .25) {
 
 						friendlyDeck.getCard(i).setValue(1);
-						lables[i].setOpacity(1);
+						lablesMyDeck[i].setOpacity(1);
 						remainingCards++;
 						oneCardChance.setText("[1]: " + Integer.toString(1 / remainingCards));
 						twoCardChance.setText("[2]: " + Integer.toString(1 / remainingCards));
@@ -203,21 +213,20 @@ public class Tracker_GUI extends Application {
 						prcessingLine(line);
 
 					}
-					while (line == null) {
+					while (line == null) {//if at end of log file
 						for (String s : outPut)
 							System.out.println(s);
 						Card tempCard;
-						Server server = new Server();
 						ArrayList<String> cardsDrawn = friendlyCards;
 						Deck dummyDeck = friendlyDeck;
 						for (String cardName : friendlyCards) {
-							for (int i = 0; i < 30; i++) {
+							for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 								String cardNameInDeck = friendlyDeck.getCard(i).name;
 								double testNumber = friendlyDeck.getCard(i).getValue().doubleValue();
 								if (cardName.equals(cardNameInDeck) && testNumber != .25) {
 
 									friendlyDeck.getCard(i).setValue(.25);
-									lables[i].setOpacity(.25);
+									lablesMyDeck[i].setOpacity(.25);
 									 remainingCards--;
 									// System.out.println(remainingCards);
 									break;
@@ -225,9 +234,17 @@ public class Tracker_GUI extends Application {
 							}
 							// UpdateChance(remainingCards);
 						}
+						if(opponentCards.size()>0) {
+							for (int x=0; x<opponentCards.size();x++) {
+								tempCard= Server.createCard(opponentCards.get(x));
+								oppDeck.addCard(tempCard);
+							}
+							
+							updateOppLabel();
+						}
 						friendlyCards.clear();
 						outPut.clear();
-
+						opponentCards.clear();
 						line = br.readLine();
 
 						if (br.readLine() != null) {
@@ -257,7 +274,7 @@ public class Tracker_GUI extends Application {
 			buttom.setPrefSize(350, 700);
 			buttom.setBackground(null);
 			
-			  BackgroundImage BackGround = new BackgroundImage(new Image("/Image/BackGround.jpg", 650, 700, false, true),
+			  BackgroundImage BackGround = new BackgroundImage(new Image("Image/BackGround.jpg", 650, 700, false, true),
 		
 					BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 					BackgroundSize.DEFAULT);
@@ -293,12 +310,19 @@ public class Tracker_GUI extends Application {
 			tab.getTabs().addAll(myDeck, oppo, grave);
 			buttom.getChildren().add(tab);
 
-			ScrollPane list = new ScrollPane();
+			ScrollPane listMyDeck = new ScrollPane();
 			tab.setPrefHeight(580);
 			tab.setPrefWidth(286 + 50);
 			tab.setLayoutX(0);
 			tab.setLayoutY(90);
-			myDeck.setContent(list);
+			myDeck.setContent(listMyDeck);
+			
+			ScrollPane listoppDeck = new ScrollPane();
+			tab.setPrefHeight(580);
+			tab.setPrefWidth(286 + 50);
+			tab.setLayoutX(0);
+			tab.setLayoutY(90);
+			oppo.setContent(listoppDeck);
 
 			TextField DeckName = new TextField();
 			// DeckName.setPrefSize(prefWidth, prefHeight);
@@ -347,11 +371,12 @@ public class Tracker_GUI extends Application {
 			CurrentDeck.setFont(Font.font("Arail", FontWeight.BOLD, 18));
 			CurrentDeck.setTextFill(Color.WHITE);
 
-			list.setContent(vb);
+			listMyDeck.setContent(vbYourCards);
+			listoppDeck.setContent(vbOppCards);
 			String[] image_name = logReader.createTestNames(0);
 
 			updateLabel(image_name);
-
+//			updateOppLabel();
 			TextField text = new TextField("");
 			// Label search = new Label("Add Cards to Deck");
 			// Label delete1 = new Label("Remove Cards to Deck");
@@ -619,14 +644,14 @@ public class Tracker_GUI extends Application {
 				public void handle(ActionEvent event) {
 					friendlyDeck.clearDeck();
 					String[] cardsname = CardsInDeck.getText().split("\n");
-					if (cardsname.length < 30) {
+					if (cardsname.length < FRIENDLYCARDCOUNTMAX) {
 						Alert alert = new Alert(Alert.AlertType.INFORMATION);
 						alert.setTitle("Alert");
 						alert.setHeaderText("You can't create a deck less than 30 cards");
 						alert.showAndWait();
 					} else {
 						
-						for (int i = 0; i < 30; i++) {
+						for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 							
 							String t = cardsname[i];
 							//System.out.println(t);
@@ -722,10 +747,10 @@ public class Tracker_GUI extends Application {
 
 			sort.setOnAction(e -> getChoice(choice));
 
-			// new event
+			// Event: Show big picture for your card
 
-			for (int i = 0; i < 30; i++) {
-				lables[i].addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+			for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
+				lablesMyDeck[i].addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 
 					@Override
 					public void handle(MouseEvent e) {
@@ -734,66 +759,66 @@ public class Tracker_GUI extends Application {
 						try {
 							lp.getLoca(primaryStage.getX(), primaryStage.getY());
 
-							if (e.getSource() == lables[0]) {
-								lp.setImage(large_picture[0]);
-							} else if (e.getSource() == lables[1]) {
-								lp.setImage(large_picture[1]);
-							} else if (e.getSource() == lables[2]) {
-								lp.setImage(large_picture[2]);
-							} else if (e.getSource() == lables[3]) {
-								lp.setImage(large_picture[3]);
-							} else if (e.getSource() == lables[4]) {
-								lp.setImage(large_picture[4]);
-							} else if (e.getSource() == lables[5]) {
-								lp.setImage(large_picture[5]);
-							} else if (e.getSource() == lables[6]) {
-								lp.setImage(large_picture[6]);
-							} else if (e.getSource() == lables[7]) {
-								lp.setImage(large_picture[7]);
-							} else if (e.getSource() == lables[8]) {
-								lp.setImage(large_picture[8]);
-							} else if (e.getSource() == lables[9]) {
-								lp.setImage(large_picture[9]);
-							} else if (e.getSource() == lables[10]) {
-								lp.setImage(large_picture[10]);
-							} else if (e.getSource() == lables[11]) {
-								lp.setImage(large_picture[11]);
-							} else if (e.getSource() == lables[12]) {
-								lp.setImage(large_picture[12]);
-							} else if (e.getSource() == lables[13]) {
-								lp.setImage(large_picture[13]);
-							} else if (e.getSource() == lables[14]) {
-								lp.setImage(large_picture[14]);
-							} else if (e.getSource() == lables[15]) {
-								lp.setImage(large_picture[15]);
-							} else if (e.getSource() == lables[16]) {
-								lp.setImage(large_picture[16]);
-							} else if (e.getSource() == lables[17]) {
-								lp.setImage(large_picture[17]);
-							} else if (e.getSource() == lables[18]) {
-								lp.setImage(large_picture[18]);
-							} else if (e.getSource() == lables[19]) {
-								lp.setImage(large_picture[19]);
-							} else if (e.getSource() == lables[20]) {
-								lp.setImage(large_picture[20]);
-							} else if (e.getSource() == lables[21]) {
-								lp.setImage(large_picture[21]);
-							} else if (e.getSource() == lables[22]) {
-								lp.setImage(large_picture[22]);
-							} else if (e.getSource() == lables[23]) {
-								lp.setImage(large_picture[23]);
-							} else if (e.getSource() == lables[24]) {
-								lp.setImage(large_picture[24]);
-							} else if (e.getSource() == lables[25]) {
-								lp.setImage(large_picture[25]);
-							} else if (e.getSource() == lables[26]) {
-								lp.setImage(large_picture[26]);
-							} else if (e.getSource() == lables[27]) {
-								lp.setImage(large_picture[27]);
-							} else if (e.getSource() == lables[28]) {
-								lp.setImage(large_picture[28]);
-							} else if (e.getSource() == lables[29]) {
-								lp.setImage(large_picture[29]);
+							if (e.getSource() == lablesMyDeck[0]) {
+								lp.setImage(large_picture_friendly[0]);
+							} else if (e.getSource() == lablesMyDeck[1]) {
+								lp.setImage(large_picture_friendly[1]);
+							} else if (e.getSource() == lablesMyDeck[2]) {
+								lp.setImage(large_picture_friendly[2]);
+							} else if (e.getSource() == lablesMyDeck[3]) {
+								lp.setImage(large_picture_friendly[3]);
+							} else if (e.getSource() == lablesMyDeck[4]) {
+								lp.setImage(large_picture_friendly[4]);
+							} else if (e.getSource() == lablesMyDeck[5]) {
+								lp.setImage(large_picture_friendly[5]);
+							} else if (e.getSource() == lablesMyDeck[6]) {
+								lp.setImage(large_picture_friendly[6]);
+							} else if (e.getSource() == lablesMyDeck[7]) {
+								lp.setImage(large_picture_friendly[7]);
+							} else if (e.getSource() == lablesMyDeck[8]) {
+								lp.setImage(large_picture_friendly[8]);
+							} else if (e.getSource() == lablesMyDeck[9]) {
+								lp.setImage(large_picture_friendly[9]);
+							} else if (e.getSource() == lablesMyDeck[10]) {
+								lp.setImage(large_picture_friendly[10]);
+							} else if (e.getSource() == lablesMyDeck[11]) {
+								lp.setImage(large_picture_friendly[11]);
+							} else if (e.getSource() == lablesMyDeck[12]) {
+								lp.setImage(large_picture_friendly[12]);
+							} else if (e.getSource() == lablesMyDeck[13]) {
+								lp.setImage(large_picture_friendly[13]);
+							} else if (e.getSource() == lablesMyDeck[14]) {
+								lp.setImage(large_picture_friendly[14]);
+							} else if (e.getSource() == lablesMyDeck[15]) {
+								lp.setImage(large_picture_friendly[15]);
+							} else if (e.getSource() == lablesMyDeck[16]) {
+								lp.setImage(large_picture_friendly[16]);
+							} else if (e.getSource() == lablesMyDeck[17]) {
+								lp.setImage(large_picture_friendly[17]);
+							} else if (e.getSource() == lablesMyDeck[18]) {
+								lp.setImage(large_picture_friendly[18]);
+							} else if (e.getSource() == lablesMyDeck[19]) {
+								lp.setImage(large_picture_friendly[19]);
+							} else if (e.getSource() == lablesMyDeck[20]) {
+								lp.setImage(large_picture_friendly[20]);
+							} else if (e.getSource() == lablesMyDeck[21]) {
+								lp.setImage(large_picture_friendly[21]);
+							} else if (e.getSource() == lablesMyDeck[22]) {
+								lp.setImage(large_picture_friendly[22]);
+							} else if (e.getSource() == lablesMyDeck[23]) {
+								lp.setImage(large_picture_friendly[23]);
+							} else if (e.getSource() == lablesMyDeck[24]) {
+								lp.setImage(large_picture_friendly[24]);
+							} else if (e.getSource() == lablesMyDeck[25]) {
+								lp.setImage(large_picture_friendly[25]);
+							} else if (e.getSource() == lablesMyDeck[26]) {
+								lp.setImage(large_picture_friendly[26]);
+							} else if (e.getSource() == lablesMyDeck[27]) {
+								lp.setImage(large_picture_friendly[27]);
+							} else if (e.getSource() == lablesMyDeck[28]) {
+								lp.setImage(large_picture_friendly[28]);
+							} else if (e.getSource() == lablesMyDeck[29]) {
+								lp.setImage(large_picture_friendly[29]);
 							}
 
 							lp.start(sta);
@@ -803,7 +828,94 @@ public class Tracker_GUI extends Application {
 						}
 					}
 				});
-				lables[i].addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+				lablesMyDeck[i].addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent e) {
+						lp.Close();
+
+					}
+				});
+			}
+			for (int i = 0; i < OPPCARDCOUNTMAX; i++) {
+				lablesOppDeck[i].addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent e) {
+						// lp.setImage(i);
+						Stage sta = new Stage();
+						try {
+							lp.getLoca(primaryStage.getX(), primaryStage.getY());
+
+							if (e.getSource() == lablesOppDeck[0]) {
+								lp.setImage(large_picture_opp[0]);
+							} else if (e.getSource() == lablesOppDeck[1]) {
+								lp.setImage(large_picture_opp[1]);
+							} else if (e.getSource() == lablesOppDeck[2]) {
+								lp.setImage(large_picture_opp[2]);
+							} else if (e.getSource() == lablesOppDeck[3]) {
+								lp.setImage(large_picture_opp[3]);
+							} else if (e.getSource() == lablesOppDeck[4]) {
+								lp.setImage(large_picture_opp[4]);
+							} else if (e.getSource() == lablesOppDeck[5]) {
+								lp.setImage(large_picture_opp[5]);
+							} else if (e.getSource() == lablesOppDeck[6]) {
+								lp.setImage(large_picture_opp[6]);
+							} else if (e.getSource() == lablesOppDeck[7]) {
+								lp.setImage(large_picture_opp[7]);
+							} else if (e.getSource() == lablesOppDeck[8]) {
+								lp.setImage(large_picture_opp[8]);
+							} else if (e.getSource() == lablesOppDeck[9]) {
+								lp.setImage(large_picture_opp[9]);
+							} else if (e.getSource() == lablesOppDeck[10]) {
+								lp.setImage(large_picture_opp[10]);
+							} else if (e.getSource() == lablesOppDeck[11]) {
+								lp.setImage(large_picture_opp[11]);
+							} else if (e.getSource() == lablesOppDeck[12]) {
+								lp.setImage(large_picture_opp[12]);
+							} else if (e.getSource() == lablesOppDeck[13]) {
+								lp.setImage(large_picture_opp[13]);
+							} else if (e.getSource() == lablesOppDeck[14]) {
+								lp.setImage(large_picture_opp[14]);
+							} else if (e.getSource() == lablesOppDeck[15]) {
+								lp.setImage(large_picture_opp[15]);
+							} else if (e.getSource() == lablesOppDeck[16]) {
+								lp.setImage(large_picture_opp[16]);
+							} else if (e.getSource() == lablesOppDeck[17]) {
+								lp.setImage(large_picture_opp[17]);
+							} else if (e.getSource() == lablesOppDeck[18]) {
+								lp.setImage(large_picture_opp[18]);
+							} else if (e.getSource() == lablesOppDeck[19]) {
+								lp.setImage(large_picture_opp[19]);
+							} else if (e.getSource() == lablesOppDeck[20]) {
+								lp.setImage(large_picture_opp[20]);
+							} else if (e.getSource() == lablesOppDeck[21]) {
+								lp.setImage(large_picture_opp[21]);
+							} else if (e.getSource() == lablesOppDeck[22]) {
+								lp.setImage(large_picture_opp[22]);
+							} else if (e.getSource() == lablesOppDeck[23]) {
+								lp.setImage(large_picture_opp[23]);
+							} else if (e.getSource() == lablesOppDeck[24]) {
+								lp.setImage(large_picture_opp[24]);
+							} else if (e.getSource() == lablesOppDeck[25]) {
+								lp.setImage(large_picture_opp[25]);
+							} else if (e.getSource() == lablesOppDeck[26]) {
+								lp.setImage(large_picture_opp[26]);
+							} else if (e.getSource() == lablesOppDeck[27]) {
+								lp.setImage(large_picture_opp[27]);
+							} else if (e.getSource() == lablesOppDeck[28]) {
+								lp.setImage(large_picture_opp[28]);
+							} else if (e.getSource() == lablesOppDeck[29]) {
+								lp.setImage(large_picture_opp[29]);
+							}
+
+							lp.start(sta);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
+				lablesOppDeck[i].addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent e) {
 						lp.Close();
@@ -827,11 +939,20 @@ public class Tracker_GUI extends Application {
 	}
 
 	public static void main(String[] args) {
-		lables = new Label[30];
+		lablesMyDeck = new Label[FRIENDLYCARDCOUNTMAX];
+		lablesOppDeck=new Label[OPPCARDCOUNTMAX];
+		for(int x=0;x<FRIENDLYCARDCOUNTMAX;x++) {
+			lablesMyDeck[x] = new Label();
+			lablesOppDeck[x]=new Label();
+			vbYourCards.getChildren().add(lablesMyDeck[x]);
+			vbOppCards.getChildren().add(lablesOppDeck[x]);
+		}
+		lablesOppDeck[OPPCARDCOUNTMAX-1]=new Label();
+		vbOppCards.getChildren().add(lablesOppDeck[OPPCARDCOUNTMAX-1]);
 		friendlyDeck = new Deck();
+		oppDeck=new Deck();
 		deck1 = new Deck();
 		String[] deckCards = logReader.createTestNames(0);
-		Server server = new Server();
 		Card tempCard;
 		for (String cardName : deckCards) {
 			tempCard = server.createCard(cardName);
@@ -845,51 +966,96 @@ public class Tracker_GUI extends Application {
 
 	}
 
-	public void put_large_image(String[] image_name) {
+	public static void put_large_image(String[] image_name,boolean isFriendly) {
 
 		// System.out.println(("Image/"+image_name[0]+".png").replaceAll("\\s+",""));
-		for (int i = 0; i < friendlyDeck.getSize(); i++) {
-			// large_picture[i] = new Image(("Image/" + image_name[i] +
-			// ".png").replaceAll("\\s+", ""));
+		if(isFriendly) {
+			for (int i = 0; i < friendlyDeck.getSize(); i++) {
+				// large_picture[i] = new Image(("Image/" + image_name[i] +
+				// ".png").replaceAll("\\s+", ""));
 
-			Card crd = friendlyDeck.getCard(i);
-			if (crd.barIcon != null) {
-				java.awt.Image img = crd.largeIcon.getImage();
-				BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null),
-						BufferedImage.TYPE_INT_ARGB);
-				Graphics2D bGr = bimage.createGraphics();
-				bGr.drawImage(img, 0, 0, null);
-				bGr.dispose();
-				large_picture[i] = SwingFXUtils.toFXImage(bimage, null);
-			} else {
-				large_picture[i] = new Image(("Image/" + "null.png").replaceAll("\\s+", ""));
+				Card crd = friendlyDeck.getCard(i);
+				if (crd.barIcon != null) {
+					java.awt.Image img = crd.largeIcon.getImage();
+					BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null),
+							BufferedImage.TYPE_INT_ARGB);
+					Graphics2D bGr = bimage.createGraphics();
+					bGr.drawImage(img, 0, 0, null);
+					bGr.dispose();
+					large_picture_friendly[i] = SwingFXUtils.toFXImage(bimage, null);
+				} else {
+					large_picture_friendly[i] = new Image(("Image/" + "null.png").replaceAll("\\s+", ""));
+				}
 			}
 		}
+		else {
+			for (int i = 0; i < oppDeck.getSize(); i++) {
+				// small_picture[i] = new Image(("Image/" + image_name[i] +
+				// "(s).png").replaceAll("\\s+", ""));
+	
+				Card crd = oppDeck.getCard(i);
+				if (crd.barIcon != null) {
+					java.awt.Image img = crd.largeIcon.getImage();
+					BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null),
+							BufferedImage.TYPE_INT_ARGB);
+					Graphics2D bGr = bimage.createGraphics();
+					bGr.drawImage(img, 0, 0, null);
+					bGr.dispose();
+					large_picture_opp[i] = SwingFXUtils.toFXImage(bimage, null);
+				} else {
+					large_picture_opp[i] = new Image(("Image/" + "null.png").replaceAll("\\s+", ""));
+				}
+			}
+		}
+		
 
 	}
 
-	public void put_small_image(String[] image_name) {
-
-		for (int i = 0; i < friendlyDeck.getSize(); i++) {
-			// small_picture[i] = new Image(("Image/" + image_name[i] +
-			// "(s).png").replaceAll("\\s+", ""));
-
-			Card crd = friendlyDeck.getCard(i);
-			if (crd.barIcon != null) {
-				java.awt.Image img = crd.barIcon.getImage();
-				BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null),
-						BufferedImage.TYPE_INT_ARGB);
-				Graphics2D bGr = bimage.createGraphics();
-				bGr.drawImage(img, 0, 0, null);
-				bGr.dispose();
-				small_picture[i] = SwingFXUtils.toFXImage(bimage, null);
-			} else {
-				small_picture[i] = new Image(("Image/" + "nullBar.png").replaceAll("\\s+", ""));
+	public static void put_small_image(String[] image_name,boolean isFriendly) {
+		
+		if(isFriendly) {
+			for (int i = 0; i < friendlyDeck.getSize(); i++) {
+				// small_picture[i] = new Image(("Image/" + image_name[i] +
+				// "(s).png").replaceAll("\\s+", ""));
+	
+				Card crd = friendlyDeck.getCard(i);
+				if (crd.barIcon != null) {
+					java.awt.Image img = crd.barIcon.getImage();
+					BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null),
+							BufferedImage.TYPE_INT_ARGB);
+					Graphics2D bGr = bimage.createGraphics();
+					bGr.drawImage(img, 0, 0, null);
+					bGr.dispose();
+					small_picture_friendly[i] = SwingFXUtils.toFXImage(bimage, null);
+				} else {
+					small_picture_friendly[i] = new Image(("Image/" + "nullBar.png").replaceAll("\\s+", ""));
+				}
 			}
 		}
+		else
+		{
+			for (int i = 0; i < oppDeck.getSize(); i++) {
+				// small_picture[i] = new Image(("Image/" + image_name[i] +
+				// "(s).png").replaceAll("\\s+", ""));
+	
+				Card crd = oppDeck.getCard(i);
+				if (crd.barIcon != null) {
+					java.awt.Image img = crd.barIcon.getImage();
+					BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null),
+							BufferedImage.TYPE_INT_ARGB);
+					Graphics2D bGr = bimage.createGraphics();
+					bGr.drawImage(img, 0, 0, null);
+					bGr.dispose();
+					small_picture_opp[i] = SwingFXUtils.toFXImage(bimage, null);
+				} else {
+					small_picture_opp[i] = new Image(("Image/" + "nullBar.png").replaceAll("\\s+", ""));
+				}
+			}
+		}
+		
 
 	}
-
+	
 	private void getChoice(ChoiceBox<String> choice) {
 		String selection = choice.getValue();
 		switch (selection) {
@@ -921,7 +1087,7 @@ public class Tracker_GUI extends Application {
 	}
 
 	private void setNewDeck() {
-		if (deck1.getSize() == 30) {
+		if (deck1.getSize() == FRIENDLYCARDCOUNTMAX) {
 			friendlyDeck.clearDeck();
 			for (int abc1 = 0; abc1 < deck1.getSize(); abc1++) {
 				friendlyDeck.addCard(deck1.getCard(abc1));
@@ -936,37 +1102,54 @@ public class Tracker_GUI extends Application {
 	}
 
 	private void updateLabel() {
-		String[] imageNames = new String[30];
+		String[] imageNames = new String[FRIENDLYCARDCOUNTMAX];
 		for (int i = 0; i < friendlyDeck.getSize(); i++) {
 			imageNames[i] = friendlyDeck.getCard(i).Name();
 		}
-		put_large_image(imageNames);
-		put_small_image(imageNames);
+		put_large_image(imageNames,true);
+		put_small_image(imageNames,true);
 
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 
-			lables[i].setPrefSize(286 + 30, 50);
+			lablesMyDeck[i].setPrefSize(286 + 30, 50);
 
-			BackgroundImage BackImage = new BackgroundImage((small_picture[i]), BackgroundRepeat.REPEAT,
+			BackgroundImage BackImage = new BackgroundImage((small_picture_friendly[i]), BackgroundRepeat.REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-			lables[i].setBackground(new Background(BackImage));
+			lablesMyDeck[i].setBackground(new Background(BackImage));
 
 		}
 	}
+	private static void updateOppLabel() {
+		String[] imageNames = new String[31];
+		for (int i = 0; i < oppDeck.getSize(); i++) {
+			imageNames[i] = oppDeck.getCard(i).Name();
+		}
+		put_large_image(imageNames,false);
+		put_small_image(imageNames,false);
 
-	private void updateLabel(String[] imageNames) {
-		put_large_image(imageNames);
-		put_small_image(imageNames);
+		for (int i = 0; i < oppDeck.getSize(); i++) {
 
-		for (int i = 0; i < 30; i++) {
-			lables[i] = new Label();
+			lablesOppDeck[i].setPrefSize(286 + 30, 50);
 
-			lables[i].setPrefSize(286 + 30, 50);
-
-			BackgroundImage BackImage = new BackgroundImage((small_picture[i]), BackgroundRepeat.REPEAT,
+			BackgroundImage BackImage = new BackgroundImage((small_picture_opp[i]), BackgroundRepeat.REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-			lables[i].setBackground(new Background(BackImage));
-			vb.getChildren().add(lables[i]);
+			lablesOppDeck[i].setBackground(new Background(BackImage));
+//			vbOppCards.getChildren().add(lablesOppDeck[i]);
+		}
+	}
+	private void updateLabel(String[] imageNames) {
+		put_large_image(imageNames,true);
+		put_small_image(imageNames,true);
+
+		for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
+//			lablesMyDeck[i] = new Label();
+
+			lablesMyDeck[i].setPrefSize(286 + 30, 50);
+
+			BackgroundImage BackImage = new BackgroundImage((small_picture_friendly[i]), BackgroundRepeat.REPEAT,
+					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+			lablesMyDeck[i].setBackground(new Background(BackImage));
+//			vbYourCards.getChildren().add(lablesMyDeck[i]);
 
 		}
 	}

@@ -16,11 +16,11 @@ public class Log_Reader {
 	}
 
 	public boolean isFriendlyCards(String line) {
-		return line.charAt(line.indexOf("player=") + 7) == '1' && Character.isDigit(line.charAt(line.length() - 1));
+		return line.charAt(line.indexOf("player=") + 7) == '1' && Character.isDigit(line.charAt(line.length() - 1)) && Character.isDigit(line.charAt(line.length() - 2));
 	}
 
 	public boolean isOpponentCards(String line) {
-		return line.charAt(line.indexOf("player=") + 7) == '2' && Character.isDigit(line.charAt(line.length() - 1));
+		return line.charAt(line.indexOf("player=") + 7) == '2' && Character.isDigit(line.charAt(line.length() - 1)) && Character.isDigit(line.charAt(line.length() - 2));
 	}
 	
 	public boolean isNewGame(String line) {
