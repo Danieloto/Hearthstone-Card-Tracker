@@ -305,14 +305,14 @@ public class Tracker_GUI extends Application {
 
 			ScrollPane listMyDeck = new ScrollPane();
 			tab.setPrefHeight(580);
-			tab.setPrefWidth(286 + 50);
+			tab.setPrefWidth(286 + 110);
 			tab.setLayoutX(0);
 			tab.setLayoutY(90);
 			myDeck.setContent(listMyDeck);
 			
 			ScrollPane listoppDeck = new ScrollPane();
 			tab.setPrefHeight(580);
-			tab.setPrefWidth(286 + 50);
+			tab.setPrefWidth(286 + 110);
 			tab.setLayoutX(0);
 			tab.setLayoutY(90);
 			oppo.setContent(listoppDeck);
@@ -352,14 +352,14 @@ public class Tracker_GUI extends Application {
 			VBox DeckList = new VBox();
 			DeckList.setLayoutX(350);
 			DeckList.setLayoutY(100);
-			DeckList.setPrefSize(280, 500);
+			DeckList.setPrefSize(280, 580);
 			buttom.getChildren().add(DeckList);
 			DeckList.setVisible(true);
 
 			Label CurrentDeck = new Label();
 			CurrentDeck.setLayoutY(60);
 			CurrentDeck.setLayoutX(525);
-			CurrentDeck.setPrefSize(120, 40);
+			CurrentDeck.setPrefSize(120, 140);
 			CurrentDeck.setVisible(false);
 			CurrentDeck.setFont(Font.font("Arail", FontWeight.BOLD, 18));
 			CurrentDeck.setTextFill(Color.WHITE);
@@ -2220,6 +2220,10 @@ public class Tracker_GUI extends Application {
 							BufferedImage.TYPE_INT_ARGB);
 					Graphics2D bGr = bimage.createGraphics();
 					bGr.drawImage(img, 0, 0, null);
+					bGr.setColor(java.awt.Color.black);
+					String prob = drawProbability(crd);
+					bGr.setFont(bGr.getFont().deriveFont(30f));
+			        bGr.drawString(prob, 0, 50);
 					bGr.dispose();
 					small_picture_friendly[i] = SwingFXUtils.toFXImage(bimage, null);
 				} else {
@@ -2306,7 +2310,7 @@ public class Tracker_GUI extends Application {
 
 		for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 
-			lablesMyDeck[i].setPrefSize(286 + 30, 50);
+			lablesMyDeck[i].setPrefSize(286 + 90, 50);
 
 			BackgroundImage BackImage = new BackgroundImage((small_picture_friendly[i]), BackgroundRepeat.REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -2324,7 +2328,7 @@ public class Tracker_GUI extends Application {
 
 		for (int i = 0; i < oppDeck.getSize(); i++) {
 
-			lablesOppDeck[i].setPrefSize(286 + 30, 50);
+			lablesOppDeck[i].setPrefSize(286 + 90, 50);
 
 			BackgroundImage BackImage = new BackgroundImage((small_picture_opp[i]), BackgroundRepeat.REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -2339,17 +2343,18 @@ public class Tracker_GUI extends Application {
 		for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 //			lablesMyDeck[i] = new Label();
 
-			lablesMyDeck[i].setPrefSize(286 + 30, 50);
+			lablesMyDeck[i].setPrefSize(286 + 90, 50);
 
 			BackgroundImage BackImage = new BackgroundImage((small_picture_friendly[i]), BackgroundRepeat.REPEAT,
 					BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+			
 			lablesMyDeck[i].setBackground(new Background(BackImage));
 //			vbYourCards.getChildren().add(lablesMyDeck[i]);
 
 		}
 	}
 	
-	private String drawProbability(Card selectedCard) {
+	private static String drawProbability(Card selectedCard) {
 		double count = 0.0;
 		String result = "";
 		double totalCards = (double)remainingCards;

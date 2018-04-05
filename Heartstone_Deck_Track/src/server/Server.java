@@ -87,7 +87,7 @@ public class Server {
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
 					
-					if(icon.getIconWidth() < 0){
+					if(icon.getIconWidth() <= 0){
 						if(cardN < (response.getBody().getArray().length() - 1)) {
 							body = response.getBody().getArray().get(cardN++).toString();
 							body = body.replaceAll("\"", "");
@@ -115,12 +115,31 @@ public class Server {
 					Graphics2D g2 = fullBar.createGraphics();
 				    Color oldColor = g2.getColor();
 				    g2.setPaint(Color.WHITE);
-			        g2.fillRect(0, 0, w, h);
+			        g2.fillRect(0, 0, wid, h);
 			        g2.setColor(oldColor);
 			        g2.drawImage(nameBar, null, 0, 0);
 			        g2.drawImage(manaBar, null, nameBar.getWidth() + 5, 0);
 			        g2.dispose();
-			        ImageIcon bar = new ImageIcon(fullBar);
+			        
+			        ImageIcon icon2 = new ImageIcon(("Image/" + "blank.png").replaceAll("\\s+", ""));
+			        img = icon2.getImage();
+			        BufferedImage blank = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+			        blank.getGraphics().drawImage(img, 0, 0, null);
+			        
+			        wid = fullBar.getWidth() + blank.getWidth() + 5;
+			        BufferedImage blankFull = new BufferedImage(wid, h + 5, BufferedImage.TYPE_INT_ARGB);
+			        g2 = blankFull.createGraphics();
+			        oldColor = g2.getColor();
+				    g2.setPaint(Color.WHITE);
+			        g2.fillRect(0, 0, wid, h);
+			        g2.setColor(oldColor);
+			        g2.drawImage(blank, null, 0, 0);
+			        g2.drawImage(fullBar, null, blank.getWidth() + 5, 0);
+//			        g2.setFont(g2.getFont().deriveFont(30f));
+//			        g2.drawString("Hello World!", 100, 50);
+			        g2.dispose();
+			        
+			        ImageIcon bar = new ImageIcon(blankFull);
 			        card.barIcon = bar;
 				}
 				if(s.equals("cost")) {
