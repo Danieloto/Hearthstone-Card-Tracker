@@ -298,11 +298,9 @@ public class Tracker_GUI extends Application {
 			TabPane tab = new TabPane();
 			Tab myDeck = new Tab("MyDeck");
 			Tab oppo = new Tab("Enemy Deck");
-			Tab grave = new Tab("Grave Yard");
 			myDeck.setClosable(false);
 			oppo.setClosable(false);
-			grave.setClosable(false);
-			tab.getTabs().addAll(myDeck, oppo, grave);
+			tab.getTabs().addAll(myDeck, oppo);
 			buttom.getChildren().add(tab);
 
 			ScrollPane listMyDeck = new ScrollPane();
