@@ -2226,7 +2226,7 @@ public class Tracker_GUI extends Application {
 					if(crd.getValue().intValue() == 1){
 						String prob = drawProbability(crd);
 						bGr.setFont(bGr.getFont().deriveFont(23f));
-				        bGr.drawString(prob, 0, 40);
+				        bGr.drawString(prob, 12, 40);
 					}
 					bGr.dispose();
 					small_picture_friendly[i] = SwingFXUtils.toFXImage(bimage, null);
