@@ -2362,8 +2362,11 @@ public class Tracker_GUI extends Application {
 		String result = "";
 		double totalCards = (double)remainingCards;
 		
-		for(int i = 0; i < remainingCards; i++) {
+		for(int i = 0; i < friendlyDeck.getSize(); i++) {
 			Card crd = friendlyDeck.getCard(i);
+			if(crd.getValue().intValue() < 1){
+				continue;
+			}
 			
 			if(selectedCard.name == crd.name)
 				count++;
