@@ -267,10 +267,10 @@ public class Tracker_GUI extends Application {
 		try {
 			oneCardChance.setText("this");
 			buttom = new AnchorPane();
-			buttom.setPrefSize(350, 700);
+			buttom.setPrefSize(450, 700);
 			buttom.setBackground(null);
 			
-			  BackgroundImage BackGround = new BackgroundImage(new Image("Image/BackGround.jpg", 650, 700, false, true),
+			  BackgroundImage BackGround = new BackgroundImage(new Image("Image/BackGround.jpg", 750, 700, false, true),
 		
 					BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 					BackgroundSize.DEFAULT);
@@ -322,7 +322,7 @@ public class Tracker_GUI extends Application {
 			// DeckName.setPrefSize(prefWidth, prefHeight);
 
 			TextArea CardsInDeck = new TextArea();
-			CardsInDeck.setLayoutX(350);
+			CardsInDeck.setLayoutX(450);
 			CardsInDeck.setLayoutY(130);
 			CardsInDeck.setPrefSize(280, 470);
 			CardsInDeck.setEditable(false);
@@ -331,13 +331,13 @@ public class Tracker_GUI extends Application {
 			buttom.getChildren().add(CardsInDeck);
 
 			Button SaveDeck = new Button("Save Deck");
-			SaveDeck.setLayoutX(350);
+			SaveDeck.setLayoutX(450);
 			SaveDeck.setLayoutY(610);
 			SaveDeck.setVisible(false);
 			buttom.getChildren().add(SaveDeck);
 
 			Button MoveToLeft = new Button("Move to the Left");
-			MoveToLeft.setLayoutX(430);
+			MoveToLeft.setLayoutX(530);
 			MoveToLeft.setLayoutY(610);
 			MoveToLeft.setVisible(false);
 			buttom.getChildren().add(MoveToLeft);
@@ -345,20 +345,20 @@ public class Tracker_GUI extends Application {
 			Button BACK = new Button("Back");
 			BACK.setFont(Font.font("Arail", FontWeight.BOLD, 18));
 			BACK.setPrefSize(200, 35);
-			BACK.setLayoutX(400);
+			BACK.setLayoutX(500);
 			BACK.setLayoutY(650);
 			buttom.getChildren().add(BACK);
 			BACK.setVisible(false);
 
 			VBox DeckList = new VBox();
-			DeckList.setLayoutX(350);
+			DeckList.setLayoutX(450);
 			DeckList.setLayoutY(100);
 			DeckList.setPrefSize(280, 580);
 			buttom.getChildren().add(DeckList);
 			DeckList.setVisible(true);
 
 			Label CurrentDeck = new Label();
-			CurrentDeck.setLayoutY(60);
+			CurrentDeck.setLayoutY(15);
 			CurrentDeck.setLayoutX(525);
 			CurrentDeck.setPrefSize(120, 140);
 			CurrentDeck.setVisible(false);
@@ -1600,7 +1600,7 @@ public class Tracker_GUI extends Application {
 			load.setLayoutX(385);
 			load.setLayoutY(10);
 			load.setPrefSize(100, 30);
-			container.setLayoutX(350);
+			container.setLayoutX(450);
 			container.setLayoutY(100);
 //			buttom.getChildren().addAll(save, load, remove, choice, sort, CurrentDeck);
 			buttom.getChildren().addAll(load, choice, sort, CurrentDeck);
@@ -2120,7 +2120,7 @@ public class Tracker_GUI extends Application {
 				});
 			}
 
-			scene = new Scene(buttom, 650, 700);
+			scene = new Scene(buttom, 750, 700);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
 			primaryStage.setTitle("HearthStone Tracker");
