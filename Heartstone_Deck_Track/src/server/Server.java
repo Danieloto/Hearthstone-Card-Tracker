@@ -60,6 +60,7 @@ public class Server {
 			
 			int cardN = 0;
 			
+			while(true){
 			for(int x = 0; x < bodySplit.length; x++) {
 				
 				if(excep){
@@ -87,8 +88,8 @@ public class Server {
 					ImageIcon icon = new ImageIcon(url);
 					card.largeIcon = icon;
 					
-					if(icon.getIconWidth() <= 0){
-						if(cardN < (response.getBody().getArray().length() - 1)) {
+					if((icon == null) || (icon.getIconWidth() <= 0)){
+						if(cardN < (response.getBody().getArray().length())) {
 							body = response.getBody().getArray().get(cardN++).toString();
 							body = body.replaceAll("\"", "");
 							body = body.replaceAll("\\{", "");
@@ -195,6 +196,23 @@ public class Server {
 					s=bodySplit[x];
 					card.name=s;
 				}
+			}
+			if(card.largeIcon == null){
+				if(cardN < (response.getBody().getArray().length())) {
+					body = response.getBody().getArray().get(cardN++).toString();
+					body = body.replaceAll("\"", "");
+					body = body.replaceAll("\\{", "");
+					body = body.replaceAll("\\}", "");
+					bodySplit = body.split(":|,");
+					continue;
+				}
+				else{
+					break;
+				}
+			}
+			else{
+				break;
+			}
 			}
 			return card;
 		}

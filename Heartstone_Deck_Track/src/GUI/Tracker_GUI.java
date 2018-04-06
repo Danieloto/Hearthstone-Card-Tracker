@@ -94,7 +94,7 @@ public class Tracker_GUI extends Application {
 	static Server server = new Server();
 
 	public static Label twoCardChance = new Label("[2]: 6.6%");
-	static int remainingCards = 0;
+	static int remainingCards = 30;
 	private static String oneCardString = "null";
 	static Label oneCardChance = new Label(oneCardString);
 
@@ -222,6 +222,7 @@ public class Tracker_GUI extends Application {
 
 									friendlyDeck.getCard(i).setValue(.25);
 									lablesMyDeck[i].setOpacity(.25);
+									updateLabel();
 									 remainingCards--;
 									// System.out.println(remainingCards);
 									break;
@@ -2221,9 +2222,11 @@ public class Tracker_GUI extends Application {
 					Graphics2D bGr = bimage.createGraphics();
 					bGr.drawImage(img, 0, 0, null);
 					bGr.setColor(java.awt.Color.black);
-					String prob = drawProbability(crd);
-					bGr.setFont(bGr.getFont().deriveFont(30f));
-			        bGr.drawString(prob, 0, 50);
+					if(crd.getValue().intValue() == 1){
+						String prob = drawProbability(crd);
+						bGr.setFont(bGr.getFont().deriveFont(30f));
+				        bGr.drawString(prob, 0, 50);
+					}
 					bGr.dispose();
 					small_picture_friendly[i] = SwingFXUtils.toFXImage(bimage, null);
 				} else {
@@ -2300,7 +2303,7 @@ public class Tracker_GUI extends Application {
 		return;
 	}
 
-	private void updateLabel() {
+	private static void updateLabel() {
 		String[] imageNames = new String[FRIENDLYCARDCOUNTMAX];
 		for (int i = 0; i < friendlyDeck.getSize(); i++) {
 			imageNames[i] = friendlyDeck.getCard(i).Name();
