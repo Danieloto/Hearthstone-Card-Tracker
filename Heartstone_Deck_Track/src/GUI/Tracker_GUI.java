@@ -151,6 +151,7 @@ public class Tracker_GUI extends Application {
 				for (int i = 0; i < FRIENDLYCARDCOUNTMAX; i++) {
 					lablesMyDeck[i].setOpacity(1);
 					lablesOppDeck[i].setBackground(null);
+					friendlyDeck.getCard(i).setValue(1);
 					
 				}
 				lablesOppDeck[OPPCARDCOUNTMAX-1].setBackground(null);
@@ -290,7 +291,7 @@ public class Tracker_GUI extends Application {
 
 			Button CreateDeck=new Button("Create");
 			CreateDeck.setPrefSize(85, 23);
-			CreateDeck.setLayoutX(560);
+			CreateDeck.setLayoutX(660);
 			CreateDeck.setLayoutY(50);
 			buttom.getChildren().add(CreateDeck);
 			
@@ -307,14 +308,14 @@ public class Tracker_GUI extends Application {
 			ScrollPane listMyDeck = new ScrollPane();
 			tab.setPrefHeight(580);
 			tab.setPrefWidth(286 + 110);
-			tab.setLayoutX(0);
+			tab.setLayoutX(5);
 			tab.setLayoutY(90);
 			myDeck.setContent(listMyDeck);
 			
 			ScrollPane listoppDeck = new ScrollPane();
 			tab.setPrefHeight(580);
 			tab.setPrefWidth(286 + 110);
-			tab.setLayoutX(0);
+			tab.setLayoutX(5);
 			tab.setLayoutY(90);
 			oppo.setContent(listoppDeck);
 
@@ -359,7 +360,7 @@ public class Tracker_GUI extends Application {
 
 			Label CurrentDeck = new Label();
 			CurrentDeck.setLayoutY(15);
-			CurrentDeck.setLayoutX(525);
+			CurrentDeck.setLayoutX(625);
 			CurrentDeck.setPrefSize(120, 140);
 			CurrentDeck.setVisible(false);
 			CurrentDeck.setFont(Font.font("Arail", FontWeight.BOLD, 18));
@@ -1579,7 +1580,7 @@ public class Tracker_GUI extends Application {
 			//Button remove = new Button("Remove");
 			ChoiceBox<String> choice = new ChoiceBox<String>();
 			choice.getItems().addAll("Mana Cost", "Armor", "Health", "Damage", "Rarity");
-			choice.setLayoutX(560);
+			choice.setLayoutX(660);
 			choice.setLayoutY(15);
 			choice.setMaxWidth(85);
 //			save.setLayoutX(340);
@@ -1594,10 +1595,10 @@ public class Tracker_GUI extends Application {
 			save.setVisible(false);
 
 			Button sort = new Button("Sort");
-			sort.setLayoutX(505);
+			sort.setLayoutX(605);
 			sort.setLayoutY(15);
 			Button load = new Button("Load Deck");
-			load.setLayoutX(385);
+			load.setLayoutX(485);
 			load.setLayoutY(10);
 			load.setPrefSize(100, 30);
 			container.setLayoutX(450);

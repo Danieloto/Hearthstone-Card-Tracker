@@ -52,8 +52,8 @@ public class LargePic extends Application {
 			Scene scene = new Scene(buttom,280,400);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(true);
-			primaryStage.setX(x+360);
-			primaryStage.setY(y+100);
+			primaryStage.setX(x+425);
+			primaryStage.setY(y+150);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.show();
 			
